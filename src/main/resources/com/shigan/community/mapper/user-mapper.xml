@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.shigan.mapper.UserMapper">
+        <resultMap id="userMap" type="user">
+            <id property="id" column="id"></id>
+            <result property="phoneNumber" column="phone_number"></result>
+            <result property="nickname" column="nickname"></result>
+            <result property="name" column="name"></result>
+            <result property="city" column="city"></result>
+            <result property="community" column="community"></result>
+            <result property="address" column="address"></result>
+            <result property="password" column="password"></result>
+        </resultMap>
+
+    <insert id="register">
+        insert into user (
+        phone_number,
+        <if test="nickname!=null && nickname!=''">nickname,</if>
+        name,
+        city,
+        community,
+        address,
+        password)
+         VALUES (
+            #{phoneNumber},
+           <if test="nickname!=null && nickname!=''">#{nickname},</if>
+             #{name},
+            #{city},
+           #{community},
+           #{address},
+           #{password}
+        )
+    </insert>
+
+</mapper>
