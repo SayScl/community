@@ -17,7 +17,7 @@
     <insert id="register">
         insert into user (
         phone_number,
-        <if test="nickname!=null && nickname!=''">nickname,</if>
+        <if test="nickname!=null and nickname!=''">nickname,</if>
         name,
         city,
         community,
@@ -25,7 +25,7 @@
         password)
          VALUES (
             #{phoneNumber},
-           <if test="nickname!=null && nickname!=''">#{nickname},</if>
+           <if test="nickname!=null and nickname!=''">#{nickname},</if>
              #{name},
             #{city},
            #{community},

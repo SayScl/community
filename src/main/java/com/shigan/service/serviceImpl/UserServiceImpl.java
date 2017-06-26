@@ -1,6 +1,7 @@
 package com.shigan.service.serviceImpl;
 
 import com.shigan.mapper.UserMapper;
+import com.shigan.pojo.User;
 import com.shigan.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -16,8 +17,8 @@ public class UserServiceImpl implements UserService{
     private UserMapper userMapper;
     @Override
     @Transactional
-    public int register() {
-        int rows = userMapper.register();
+    public int register(User user) {
+        int rows = userMapper.register(user);
         return rows;
     }
 }

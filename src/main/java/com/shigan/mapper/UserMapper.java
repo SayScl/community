@@ -1,5 +1,6 @@
 package com.shigan.mapper;
 
+import com.shigan.pojo.User;
 import org.apache.ibatis.annotations.Mapper;
 import org.springframework.stereotype.Component;
 
@@ -11,5 +12,5 @@ import org.springframework.stereotype.Component;
 public interface UserMapper {
 
     //注册一个用户
-    public int register();
+    public int register(User user);
 }
