@@ -34,4 +34,8 @@
         )
     </insert>
 
+    <select id="getOne" parameterType="user" resultMap="userMap">
+        select * from user where phone_number=#{phoneNumber} and password=#{password};
+    </select>
+
 </mapper>

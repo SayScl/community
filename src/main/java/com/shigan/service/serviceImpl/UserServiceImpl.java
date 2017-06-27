@@ -15,10 +15,18 @@ public class UserServiceImpl implements UserService{
 
     @Autowired
     private UserMapper userMapper;
+    //注册添加一个用户
     @Override
     @Transactional
     public int register(User user) {
         int rows = userMapper.register(user);
         return rows;
+    }
+
+    //登录查询一个用户
+    @Override
+    public User getOne( User user) {
+        User u1 = userMapper.getOne(user);
+        return u1;
     }
 }

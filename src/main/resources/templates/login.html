@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8"/>
+    <title>Title</title>
+    <link rel="stylesheet" href="/css/login.css" />
+</head>
+<body>
+<div class="main">
+
+    <div class="top">
+        <div style="background-color: yellow;margin-left: 100px;"><span style="font-size: 4em;">箭头</span></div>
+        <div style="background-color: blue;"><span style="font-size: 4em;">登录</span></div>
+        <div style="background-color: blueviolet;margin-right: 100px;"><span style="font-size: 4em;">注册</span></div>
+    </div>
+
+    <div class="pic"><img src="/img/login/log.png" style="margin-top: 150px;opacity: 0.6;"></img></div>
+
+    <div class="content">
+        <div>
+            <p style="font-size: 1.2em;color: floralwhite;margin-top: 50px;" >手机</p>
+            <input type="text" id="phoneNumber" style="border: none;background-color: transparent;border-bottom:1px solid white;margin: 5px;"  size="60px"/>
+        </div>
+        <div>
+            <p style="font-size: 1.2em;color: floralwhite;margin-top: 5px;">密码</p>
+            <input type="text"  id="password" style="border: none;background-color: transparent;border-bottom:1px solid white;margin: 5px;"  size="60px"/>
+        </div>
+        <div>
+            <button style="background-color: transparent;border: 1px solid floralwhite;border-radius: 25px;margin-top: 20px;width: 400px;">
+                <p style="font-size: 1.8em;color: whitesmoke;" onclick="login()">登录</p>
+            </button>
+        </div>
+        <div>
+            <p style="margin-top: 20px;color: floralwhite;">忘记密码?</p>
+        </div>
+    </div>
+</div>
+</body>
+
+<script src="/jquery-3.1.1.min.js"></script>
+<script th:inline="javascript">
+    /*<![CDATA[*/
+    function login(){
+      var phoneNumber=$("#phoneNumber").val();
+      var password=$("#password").val();
+      $.ajax({
+          url:"/user/login",
+          type:"post",
+          data:{phoneNumber:phoneNumber,password:password},
+          success:function(data){
+              if(data=="success"){
+                  window.location.href="/";
+              }else{
+                  alert("账号或密码不正确，请重新登录")
+              }
+          },
+
+          }
+      )
+
+    }
+
+/*]]>*/
+
+</script>
+</html>

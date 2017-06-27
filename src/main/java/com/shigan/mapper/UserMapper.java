@@ -13,4 +13,7 @@ public interface UserMapper {
 
     //注册一个用户
     public int register(User user);
+
+    //登录查询用户
+    public User getOne(User user);
 }
