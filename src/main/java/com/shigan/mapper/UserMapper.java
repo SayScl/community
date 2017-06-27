@@ -16,4 +16,7 @@ public interface UserMapper {
 
     //登录查询用户
     public User getOne(User user);
+
+    //修改一个用户密码
+    public int modify(User user);
 }

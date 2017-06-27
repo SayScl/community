@@ -34,6 +34,12 @@ public class UserController {
     }
 
 
+    //跳转到重置密码页面
+    @RequestMapping("goModify")
+    public String goModify(){
+        return "modifyPWD";
+    }
+
     //跳转到登录页面
     @RequestMapping("goLogin")
     public String goLogin(){
@@ -77,6 +83,24 @@ public class UserController {
         if(u1!=null){
             HttpSession session = request.getSession();
             session.setAttribute("user",u1);
+            return "success";
+        }else{
+            return "faild";
+        }
+    }
+
+
+    //实现密码修改
+    @PostMapping("modify")
+    @ResponseBody
+    public String modify(HttpServletRequest request){
+        String phoneNumber = request.getParameter("phoneNumber");
+        String password = request.getParameter("password");
+        User user=new User();
+        user.setPhoneNumber(phoneNumber);
+        user.setPassword(password);
+        int row = userService.modify(user);
+        if(row>0){
             return "success";
         }else{
             return "faild";

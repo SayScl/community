@@ -29,4 +29,11 @@ public class UserServiceImpl implements UserService{
         User u1 = userMapper.getOne(user);
         return u1;
     }
+
+    @Override
+    @Transactional
+    public int modify(User user) {
+        int row = userMapper.modify(user);
+        return row;
+    }
 }

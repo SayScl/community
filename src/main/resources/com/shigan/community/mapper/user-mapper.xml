@@ -38,4 +38,7 @@
         select * from user where phone_number=#{phoneNumber} and password=#{password};
     </select>
 
+    <update id="modify" parameterType="user">
+      update user set password=#{password} where phone_number=#{phoneNumber}
+    </update>
 </mapper>

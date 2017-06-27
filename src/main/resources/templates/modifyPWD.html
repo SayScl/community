@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns="http://www.w3.org/1999/html">
+<head>
+	<meta charset="UTF-8"/>
+	<title>Title</title>
+	<link rel="stylesheet" href="/css/login.css" />
+</head>
+<body>
+<div class="main" id="main">
+
+	<div class="top">
+		<div style="margin-left: 50px;"><span style="font-size: 5em;color: white;">&lt;</span></div>
+		<div style="margin: auto;"><span style="font-size: 4em;color: floralwhite;">找回密码</span></div>
+	</div>
+
+
+	<div class="content">
+		<div>
+			<p style="font-size: 1.2em;color: floralwhite;margin-top: 100px;">手机</p>
+			<input type="text" id="phoneNumber" onblur="vaphoneNumber()" style="border: none;background-color: transparent;border-bottom:1px solid white;margin: 5px;"  size="60px"/>
+			<p id="spanphoneNumber" style="color: burlywood;"></p>
+		</div>
+
+		<div style="margin-top: 40px">
+			<span  style="font-size: 1.2em;color: floralwhite;margin-top: 100px;">短信验证</span>
+			&nbsp;&nbsp;<input id="number" style="background-color: transparent;border: none;"/>
+			<button onclick="time(this)"  style="background-color: transparent;border: 1px solid floralwhite;border-radius: 25px;margin-top: 20px;width: 150px;margin-left: 60px;">
+				<p id="getNumber" style="font-size: 1.3em;color: whitesmoke;">获取验证码</p>
+			</button>
+			<p><input type="text" id="validata" onblur="vavalidata()" style="border: none;background-color: transparent;border-bottom:1px solid white;margin: 5px;"  size="60px"/></p>
+			<p id="spanvalidata" style="color: burlywood;"></p>
+		</div>
+
+		<div>
+			<p style="font-size: 1.2em;color: floralwhite;margin-top: 50px;">新密码</p>
+			<input type="text" onblur="vapassword()" id="password" style="border: none;background-color: transparent;border-bottom:1px solid white;margin: 5px;"  size="60px"/>
+			<p id="spanpassword" style="color: burlywood;"></p>
+		</div>
+
+		<div>
+			<p style="font-size: 1.2em;color: floralwhite;margin-top: 50px;">确认密码</p>
+			<input type="text" onblur="varepassword()" id="repassword" style="border: none;background-color: transparent;border-bottom:1px solid white;margin: 5px;"  size="60px"/>
+			<p id="spanrepassword" style="color: burlywood;"></p>
+		</div>
+		<div>
+			<button onclick="vaphoneNumber(),vavalidata(),vapassword(),varepassword(),modify()" style="background-color: transparent;border: 1px solid floralwhite;border-radius: 25px;margin-top: 20px;width: 400px;height: 50px;">
+				<p style="font-size: 1.8em;color: whitesmoke;">找回密码</p>
+				<p style="font-size:3em;color: whitesmoke;" id="tip"></p>
+			</button>
+		</div>
+
+
+	</div>
+
+</div>
+
+</body>
+
+
+<script src="/jquery-3.1.1.min.js"></script>
+<script th:inline="javascript">
+	/*<![CDATA[*/
+    //验证手机号码的有效性
+    function vaphoneNumber(){
+        var sMobile = $("#phoneNumber").val();
+        if(!(/^1[3|4|5|8][0-9]\d{4,8}$/.test(sMobile)) || sMobile.length!=11){
+            $("#spanphoneNumber").text("不是完整的11位手机号或者不是正确手机号码")
+            return false;
+        }else{
+            $("#spanphoneNumber").text("")
+        }
+    }
+
+
+    //验证密码必填
+    function vapassword(){
+        var password=$("#password").val();
+        if(password==null || password==""){
+            $("#spanpassword").text("密码不能为空");
+            return false;
+        }else{
+            $("#spanpassword").text("");
+        }
+    }
+    //验证确认密码必填
+    function varepassword(){
+        var password=$("#password").val();
+        var repassword=$("#repassword").val();
+        if(repassword==null || repassword==""){
+            $("#spanrepassword").text("确认密码不能为空");
+            return false;
+        }else{
+            if(password===repassword){
+                $("#spanrepassword").text("密码可用")
+            }else{
+                $("#spanrepassword").text("两次密码不一致")
+            }
+        }
+    }
+
+
+
+    //获得随机验证码
+    var wait=0;
+    var number;
+    function time(o) {
+        if (wait == 0) {
+            var ran=Math.random()*9999+1000;
+            number=parseInt(ran);
+            $("#number").val(number);
+            wait = 60;
+            o.setAttribute("disabled", true);
+            var interval=setInterval(function() {
+                    wait--;
+                    $("#getNumber").text("("+wait + "）后重新获取")
+                    if(wait==0){
+                        o.removeAttribute("disabled");
+                        $("#getNumber").text("获取验证码")
+                        clearInterval(interval);
+                    }
+                },
+                1000)
+        }
+
+    }
+
+    //验证码是否正确
+    function vavalidata(){
+        var validata=$("#validata").val();
+        if(validata==null ||validata==""){
+            $("#spanvalidata").text("请输入验证码");
+            return false;
+        }else{
+            if(validata==number){
+                $("#spanvalidata").text("验证码正确");
+            }else{
+                $("#spanvalidata").text("验证码有误");
+                return false;
+            }
+        }
+    }
+//修改密码
+    function modify(){
+        var phoneNumber=$("#phoneNumber").val();
+        var password=$("#password").val();
+		$.ajax({
+			url:"/user/modify",
+			type:"post",
+			data:{phoneNumber:phoneNumber,password:password},
+			success:function (data) {
+			    if(data=="success"){
+			        if(confirm("是否去登录")){
+                        window.location.href="/user/goLogin";
+					}else{
+                        window.location.href="/";
+					}
+				}else{
+			        alert("密码重置失败")
+				}
+            }
+		})
+    }
+	/*]]> */
+</script>
+</html>
