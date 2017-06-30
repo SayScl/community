@@ -1,8 +1,11 @@
 package com.shigan.mapper;
 
+import com.shigan.pojo.Ad;
 import com.shigan.pojo.User;
 import org.apache.ibatis.annotations.Mapper;
 import org.springframework.stereotype.Component;
+
+import java.util.List;
 
 /**
  * Created by Administrator on 2017/6/26.
@@ -19,4 +22,8 @@ public interface UserMapper {
 
     //修改一个用户密码
     public int modify(User user);
+
+
+    //查找广告
+    public List<Ad> getAdByAdId(Ad ad);
 }

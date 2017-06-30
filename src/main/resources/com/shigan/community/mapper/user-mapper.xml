@@ -14,10 +14,19 @@
             <result property="password" column="password"></result>
         </resultMap>
 
+    <!--广告-->
+        <resultMap id="adMap" type="ad">
+            <id property="id" column="id"></id>
+            <result property="adname" column="adname"></result>
+            <result property="adlocationid" column="adlocationid"></result>
+            <result property="url" column="url"></result>
+            <result property="path" column="path"></result>
+        </resultMap>
+
     <insert id="register">
         insert into user (
         phone_number,
-        <if test="nickname!=null and nickname!=''">nickname,</if>
+        nickname,
         name,
         city,
         community,
@@ -25,7 +34,7 @@
         password)
          VALUES (
             #{phoneNumber},
-           <if test="nickname!=null and nickname!=''">#{nickname},</if>
+           #{nickname},
              #{name},
             #{city},
            #{community},
@@ -41,4 +50,10 @@
     <update id="modify" parameterType="user">
       update user set password=#{password} where phone_number=#{phoneNumber}
     </update>
+
+
+    <!--查找广告位-->
+    <select id="getAdByAdId" parameterType="ad" resultMap="adMap">
+        select * from ad where adlocationid=#{adlocationid}
+    </select>
 </mapper>

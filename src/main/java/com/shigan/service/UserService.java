@@ -1,6 +1,9 @@
 package com.shigan.service;
 
+import com.shigan.pojo.Ad;
 import com.shigan.pojo.User;
+
+import java.util.List;
 
 /**
  * Created by Administrator on 2017/6/26.
@@ -14,4 +17,8 @@ public interface UserService {
 
     //修改一个用户密码
     public int modify(User user);
+
+
+    //查找广告
+    public List<Ad> getAdByAdId(Ad ad);
 }

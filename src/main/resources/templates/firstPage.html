@@ -2,49 +2,93 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8"/>
-    <title>Title</title>
+    <title>首页</title>
     <link rel="stylesheet" href="/css/firstPage.css" />
+    <link rel="stylesheet" href="/css/style.css"/>
 </head>
 <body>
 <div class="main">
+    <div class="top"></div>
 
-    <div class="top">
-        <a href="/user/goRegister">注册</a>
-        <a href="/user/goLogin">登录</a>
+
+    <div class="demo" style="width:100%">
+        <a class="control prev"></a><a class="control next abs"></a><!--自定义按钮，移动端可不写-->
+        <div class="slider"><!--主体结构，请用此类名调用插件，此类名可自定义-->
+            <ul >
+                <li th:each="ad:${list}"><a href=""><img th:src="${ad.path}" alt="" /></a></li>
+            </ul>
+        </div>
     </div>
 
 
 
-    <div class="title"></div>
-
-
 
     <div class="channel">
-        <div style="border-radius: 50px;background-color: cyan;height: 100px;width: 100px;margin-left: 30px;"></div>
+        <div style="height: 200px;width: 180px;margin-left:50px;"><img src="../img/firstpage/社区超市.png"/></div>
+        <div style="height: 200px;width: 180px;margin-left: 50px;"><img src="../img/firstpage/快递寄送.png"/></div>
+        <div style="height: 200px;width: 180px;margin-left: 50px;"><img src="../img/firstpage/家政服务.png"/></div>
+        <div style="height: 200px;width: 180px;margin-left: 50px;"><img src="../img/firstpage/便民洗涤.png"/></div>
+        <div style="height: 200px;width: 180px;margin-left: 50px;"><img src="../img/firstpage/网车预约.png"/></div>
+        <div style="height: 200px;width: 180px;margin-left: 50px;"><img src="../img/firstpage/社区二手.png"/></div>
+        <div style="height: 200px;width: 180px;margin-left: 50px;"><img src="../img/firstpage/物业服务.png"/></div>
+        <div style="height: 200px;width: 180px;margin-left: 50px;"><img src="../img/firstpage/装修.png"/></div>
 
     </div>
 
 
 
     <div class="business">
-        <div style="background-color: red;margin-right: 50px;font-size: 2em;">物业工作展示</div>
+        <div style="border: gray 1px solid;margin-right: 50px;font-size: 2em;width: 400px;">物业工作展示</div>
         <div style="display: flex;display: -webkit-flex;flex-flow: column nowrap;">
-            <div style="background-color: #F54866;margin-top: 20px;">业主投票</div>
-            <div style="background-color: blanchedalmond;margin-top: 20px;">小区公告</div>
-            <div style="background-color: cyan;margin-top: 20px;">物业报修</div>
+            <div style="border: gray 1px solid;margin-top: 20px;width: 300px;">
+                <div style="display: flex;display: -webkit-flex;justify-content: flex-start;"><p style="font-size: 2em;">业主投票</p><p>轻松便捷，业主福利</p></div>
+                <div style="display: flex;display: -webkit-flex;justify-content: flex-end;"><img src="../img/firstpage/业主投票.png"/></div>
+            </div>
+            <div style="border: gray 1px solid;margin-top: 20px;width: 300px;">
+                <div style="font-size: 2em;display: flex;display: -webkit-flex;justify-content: flex-start;">小区公告</div>
+                <div style="display: flex;display: -webkit-flex;justify-content: flex-end;"><img src="../img/firstpage/小区公告.png"/></div>
+            </div>
+            <div style="border: gray 1px solid;margin-top: 20px;width: 300px;">
+                <div style="font-size: 2em;display: flex;display: -webkit-flex;justify-content: flex-start;">物业报修</div>
+                <div style="display: flex;display: -webkit-flex;justify-content: flex-end;"><img src="../img/firstpage/物业报修.png"/></div>
+            </div>
         </div>
     </div>
 
 
     <div class="floor">
-        <div style="background-color: red;margin-right: 50px;font-size: 2em;">主页</div>
-        <div style="background-color: black;margin-right: 50px;font-size: 2em;">订单</div>
-        <div style="background-color: blue;margin-right: 50px;font-size: 2em;">我的</div>
-        <div style="background-color: yellow;font-size: 2em;">更多</div>
+        <div style="margin-right: 100px;font-size: 2em;">
+            <img src="../img/firstpage/主页.png"/>
+        </div>
+        <div style="margin-right: 100px;font-size: 2em;">
+            <img src="../img/firstpage/订单.png"/>
+        </div>
+        <div style="margin-right: 100px;font-size: 2em;">
+            <img src="../img/firstpage/我的.png"/>
+        </div>
+        <div style="font-size: 2em;">
+            <img src="../img/firstpage/更多.png"/>
+        </div>
     </div>
 
 
 
 </div>
 </body>
+
+<script src="/js/jquery-3.1.1.min.js"></script>
+<script src="/js/YuxiSlider.jQuery.min.js"></script>
+<script>
+    var width1;
+    $(".slider").YuxiSlider({
+        width:document.body.scrollWidth,
+        height:450, //容器高度
+        control:$('.control'), //绑定控制按钮
+        during:4000, //间隔4秒自动滑动
+        speed:800, //移动速度0.8秒
+        mousewheel:true, //是否开启鼠标滚轮控制
+        direkey:true //是否开启左右箭头方向控制
+    });
+</script>
+
 </html>

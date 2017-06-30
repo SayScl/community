@@ -1,11 +1,14 @@
 package com.shigan.service.serviceImpl;
 
 import com.shigan.mapper.UserMapper;
+import com.shigan.pojo.Ad;
 import com.shigan.pojo.User;
 import com.shigan.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+
+import java.util.List;
 
 /**
  * Created by Administrator on 2017/6/26.
@@ -35,5 +38,12 @@ public class UserServiceImpl implements UserService{
     public int modify(User user) {
         int row = userMapper.modify(user);
         return row;
+    }
+
+    //查找广告
+    @Override
+    public List<Ad> getAdByAdId(Ad ad) {
+        List<Ad> ads = userMapper.getAdByAdId(ad);
+        return ads;
     }
 }

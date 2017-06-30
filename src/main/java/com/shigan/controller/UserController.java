@@ -1,5 +1,6 @@
 package com.shigan.controller;
 
+import com.shigan.pojo.Ad;
 import com.shigan.pojo.User;
 import com.shigan.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,6 +16,7 @@ import sun.misc.Request;
 import javax.servlet.ServletRequest;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
+import java.util.List;
 
 /**
  * Created by Administrator on 2017/6/26.
@@ -46,6 +48,7 @@ public class UserController {
         return "login";
     }
 
+    //注册
     @PostMapping("/register")
     @ResponseBody
     public String register(Model model,@RequestParam String phoneNumber,@RequestParam String nickname,
@@ -54,7 +57,11 @@ public class UserController {
 
         User user=new User();
         user.setPhoneNumber(phoneNumber);
-        user.setNickname(nickname);
+        if(nickname==null || nickname==""){
+            user.setNickname(phoneNumber);
+        }else{
+            user.setNickname(nickname);
+        }
         user.setName(name);
         user.setAddress(address);
         user.setCity(city);
@@ -105,6 +112,21 @@ public class UserController {
         }else{
             return "faild";
         }
+    }
+
+    //查找广告
+    @RequestMapping("getAd")
+    @ResponseBody
+    public String getAd(HttpServletRequest request){
+        String adlocationid = request.getParameter("adlocationid");
+        Ad ad = new Ad();
+        if(adlocationid!=null){
+            ad.setAdlocationid(Integer.parseInt(adlocationid));
+        }
+        List<Ad> ads = userService.getAdByAdId(ad);
+
+        return "success";
+
     }
 
 }
