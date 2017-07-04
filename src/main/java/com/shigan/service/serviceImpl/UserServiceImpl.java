@@ -2,6 +2,8 @@ package com.shigan.service.serviceImpl;
 
 import com.shigan.mapper.UserMapper;
 import com.shigan.pojo.Ad;
+import com.shigan.pojo.CityCommunity;
+import com.shigan.pojo.Limit;
 import com.shigan.pojo.User;
 import com.shigan.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -33,6 +35,13 @@ public class UserServiceImpl implements UserService{
         return u1;
     }
 
+    //查找手机号是否存在
+    @Override
+    public User getPhoneNumber(User user) {
+        User phoneNumber = userMapper.getPhoneNumber(user);
+        return phoneNumber;
+    }
+
     @Override
     @Transactional
     public int modify(User user) {
@@ -45,5 +54,32 @@ public class UserServiceImpl implements UserService{
     public List<Ad> getAdByAdId(Ad ad) {
         List<Ad> ads = userMapper.getAdByAdId(ad);
         return ads;
+    }
+
+    //查找所有城市名
+    @Override
+    public List<CityCommunity> getCtiys() {
+        List<CityCommunity> ctiys = userMapper.getCtiys();
+        return ctiys;
+    }
+
+    //根据cityid找小区
+    @Override
+    public List<CityCommunity> getCommunityByCityId(CityCommunity cityCommunity) {
+        List<CityCommunity> communityByCityId = userMapper.getCommunityByCityId(cityCommunity);
+        return communityByCityId;
+    }
+
+    @Override
+    public List<CityCommunity> getCommunity() {
+        List<CityCommunity> community = userMapper.getCommunity();
+        return community;
+    }
+
+    //查询功能列表
+    @Override
+    public List<Limit> getLimits() {
+        List<Limit> limits = userMapper.getLimits();
+        return limits;
     }
 }

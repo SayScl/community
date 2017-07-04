@@ -4,95 +4,241 @@
     <meta charset="UTF-8"/>
     <title>注册页</title>
     <link rel="stylesheet" href="/css/register.css" />
+
+
+    <style>
+        *{ margin: 0; padding: 0; }
+        img{border:0;}
+        ul,li{list-style-type:none;}
+        a {color:#00007F;text-decoration:none;}
+        a:hover {color:#bd0a01;text-decoration:underline;}
+        .treebox{ width: 700px; margin: 0 auto; background-color:#1a6cb9; }
+        .menu{ overflow: hidden; border-color: #ddd; border-style: solid ; border-width: 0 1px 1px ; }
+        /*第一层*/
+        .menu li.level1>a{
+            display:block;
+            height: 45px;
+            line-height: 45px;
+            color: #fff;
+            padding-left: 50px;
+            border-bottom: 1px solid #000;
+            font-size: 16px;
+            position: relative;
+            transition:all .5s ease 0s;
+        }
+        .menu li.level1 a:hover{ text-decoration: none;background-color:#326ea5;   }
+        .menu li.level1 a.current{ background: #0f4679; }
+
+        /*============修饰图标*/
+        .ico{ width: 20px; height: 20px; display:block;   position: absolute; left: 20px; top: 10px; background-repeat: no-repeat; background-image: url(/images/ico1.png); }
+
+        /*============小箭头*/
+        .level1 i{ width: 20px; height: 10px; background-image:url(/images/arrow.png); background-repeat: no-repeat; display: block; position: absolute; right: 20px; top: 20px; }
+        .level1 i.down{ background-position: 0 -10px; }
+
+        .ico1{ background-position: 0 0; }
+        .ico2{ background-position: 0 -20px; }
+        .ico3{ background-position: 0 -40px; }
+        .ico4{ background-position: 0 -60px; }
+        .ico5{ background-position: 0 -80px; }
+
+        /*第二层*/
+        .menu li ul{ overflow: hidden; }
+        .menu li ul.level2{ display: none;background: #0f4679;  }
+        .menu li ul.level2 li a{
+            display: block;
+            height: 45px;
+            line-height: 45px;
+            color: #fff;
+            text-indent: 60px;
+            /*border-bottom: 1px solid #ddd; */
+            font-size: 14px;
+            transition:all 1s ease 0s;
+        }
+    </style>
+
+
+
 </head>
 <body>
-<div class="main">
-    <form id="form">
-        <div>手机号码<input type="text" name="phoneNumber" id="phoneNumber" onblur="vaphoneNumber()"></input>*
-            <span id="spanphoneNumber"></span>
-        </div>
-        <div>昵称<input type="text" name="nickname" id="nickname" ></input></div>
-        <div>实名<input type="text" name="name" id="name" onblur="vaname()"></input>*
-            <span id="spanname"></span>
-        </div>
-        <div>所在城市<select id="selectcity" onchange="getcity();vacity()" onblur="vacity()"><option>城市</option>
+<div class="main" id="main">
+    <div class="top">
+        <div style="margin-left: 30px;"><span style="font-size: 2em;color: white;"><a href="javascript:history.go(-1);window.reload()" style="text-decoration: none;cursor: pointer;color: white">&lt;</a></span></div>
+        <div style="margin: auto;"><span style="font-size: 2em;color: white;">注册</span></div>
+    </div>
 
-            <option>cd</option>
-        </select>
-            所在小区<select id="selectcommunity" onchange="getcommunity();vacommunity()" onblur="vacommunity()">
-                <option>小区</option>
-                <option>xiaoxinggong</option>
 
-            </select>
+        <div style="margin-top: 50px;">
+            <span style="font-size: 1.2em;color: floralwhite;margin-top: 50px;">手机号码</span>
+            <input type="text" name="phoneNumber" id="phoneNumber" onblur="vaphoneNumber(),testphoneNumber()" style="border: none;background-color: transparent;border-bottom:1px solid white;margin: 5px;height: 40px;font-size: 1.1em"  size="35px"></input>*
+            <p id="spanphoneNumber"></p>
+            <p id="spanphoneNumber1"></p>
+        </div>
+
+        <div style="margin-top: 30px;">
+            <span style="font-size: 1.2em;color: floralwhite;margin-top: 50px;">昵&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;称</span>
+            <input type="text" name="nickname" id="nickname" style="border: none;background-color: transparent;border-bottom:1px solid white;margin: 5px;height: 40px;font-size: 1.1em"  size="35px"></input></div>
+
+        <div style="margin-top: 30px;">
+            <span style="font-size: 1.2em;color: floralwhite;margin-top: 50px;">真实姓名</span>
+            <input type="text" name="name" id="name" onblur="vaname()" style="border: none;background-color: transparent;border-bottom:1px solid white;margin: 5px;height: 40px;font-size: 1.1em"  size="35px"></input>*
+            <p id="spanname"></p>
+        </div>
+
+
+        <div style="margin-top: 30px;" onclick="select()">
+            <span style="font-size: 1.2em;color: floralwhite;margin-top: 50px;">所在小区</span>
+            <input id="showcc"  type="text"  style="border: none;background-color: transparent;border-bottom:1px solid white;margin: 5px;font-size: 25px;color: darkgray;"  size="49px" value="点击选择"  readonly="readonly" ></input>*
             <span id="spancity"></span><span id="spancommunity"></span>
         </div>
-        <div>详细地址<input type="text" name="address" id="address" onblur="vaaddress()"></input>*
-            <span id="spanaddress"></span>
+
+
+        <div style="margin-top: 30px;">
+            <span style="font-size: 1.2em;color: floralwhite;margin-top: 50px;">详细地址</span>
+            <input type="text" name="address" id="address" onblur="vaaddress()" style="border: none;background-color: transparent;border-bottom:1px solid white;margin: 5px;height: 40px;font-size: 1.1em"  size="35px"></input>*
+            <p id="spanaddress"></p>
         </div>
-        <div>登陆密码<input type="text" name="password" id="password" onblur="vapassword()"></input>*
-            <span id="spanpassword"></span></div>
-        <div>确认密码<input type="text" id="repassword" onblur="varepassword()"></input>*
-            <span id="spanrepassword"></span>
+
+
+        <div style="margin-top: 30px;">
+            <span style="font-size: 1.2em;color: floralwhite;margin-top: 50px;">登录密码</span>
+            <input type="text" name="password" id="password" onblur="vapassword()" style="border: none;background-color: transparent;border-bottom:1px solid white;margin: 5px;height: 40px;font-size: 1.1em"  size="35px"></input>*
+            <p id="spanpassword"></p></div>
+
+
+        <div style="margin-top: 30px;">
+            <span style="font-size: 1.2em;color: floralwhite;margin-top: 50px;">确认密码</span>
+            <input type="text" id="repassword" onblur="varepassword()" style="border: none;background-color: transparent;border-bottom:1px solid white;margin: 5px;height: 40px;font-size: 1.1em"  size="35px"></input>*
+            <p id="spanrepassword"></p>
         </div>
-        <div>验证码<input type="text" id="validata" onblur="vavalidata()"></input>
-            <span id="getNumber" onclick="time(this)">获取验证码</span>
-            <span id="number"></span><span id="spanvalidata"></span>
+
+
+        <div style="margin-top: 30px;">
+            <span style="font-size: 1.2em;color: floralwhite;margin-top: 50px;">验证码</span>
+            <input type="text" id="validata" onblur="vavalidata()" style="border: none;background-color: transparent;border-bottom:1px solid white;margin: 5px;height: 40px;font-size: 1.1em"  size="25px"></input>
+            <button id="getNumber" onclick="time(this)" style="background-color: transparent;border: 1px solid floralwhite;border-radius: 25px;margin-top: 20px;width: 150px;margin-left: 60px;">
+                <p id="getNumber" style="font-size: 1.7em;color: whitesmoke;">获取验证码</p>
+            </button>
+            <span id="number"></span><p id="spanvalidata"></p>
         </div>
-        <div><span style="font-size: 2em" onclick="vaphoneNumber(),vaname(),
-        vacity(),vacommunity(),vaaddress(),vapassword(),vasubmit(),submit()">提交</span></div>
+
+
+        <div style="margin-top: 30px;display: flex;display: -webkit-flex;justify-content: center;" onclick="vaphoneNumber(),vaname(),vaaddress(),vapassword(),test()">
+            <button style="background-color: transparent;border: 1px solid floralwhite;border-radius: 25px;margin-top: 20px;width: 600px;height: 70px;"><p style="font-size: 2em;color: whitesmoke;">注册</p></button></div>
+        <p><p id="spansubmit"></p></p>
         <input type="hidden" name="city" id="city"></input>
         <input type="hidden" name="community" id="community" ></input>
-    </form>
 </div>
+
+
+
+<div id="selecttt" style="display: none;">
+
+    <div class="treebox">
+        <ul class="menu">
+            <li class="level1" th:each="city,iterStat:${citys}" >
+                <a href="#none" onclick="getct(this)"><em class="ico ico1"></em><span   th:text="${city.cityName}"  th:id="${iterStat.index}"></span><i class="down"></i></a>
+                <ul class="level2" >
+                    <li onclick="getcc(this)" class="level3" id="cc" th:each="community:${communitys}" th:if="${city.cityid}==${community.parentId}"><a href="javascript:;"><span   th:text="${community.community}"></span></a></li>
+                </ul>
+            </li>
+        </ul>
+    </div>
+</div>
+
+
+
 </body>
-<script src="/jquery-3.1.1.min.js"></script>
+
+<script src="../js/jquery-3.1.1.min.js"></script>
+<script src="../js/easing.js"></script>
 <script th:inline="javascript">
     /*<![CDATA[*/
+
     var flag=true;
+
+    //手风琴样式
+    //等待dom元素加载完毕.
+    $(function(){
+
+        $(".treebox .level1>a").click(function(){
+            $(this).addClass('current')   //给当前元素添加"current"样式
+                .find('i').addClass('down')   //小箭头向下样式
+                .parent().next().slideDown('slow','easeOutQuad')  //下一个元素显示
+                .parent().siblings().children('a').removeClass('current')//父元素的兄弟元素的子元素去除"current"样式
+                .find('i').removeClass('down').parent().next().slideUp('slow','easeOutQuad');//隐藏
+            return false; //阻止默认时间
+        });
+    })
+
+    //显示或隐藏选择小区页
+    function select(){
+        if($("#selecttt").css("display")=="none"){
+            $("#selecttt").css("display","block");
+            $(".main").hide();
+        }
+
+    }
+
+    var ct;
+    function getct(t){
+        ct=$(t).text();
+          $("#city").val(ct)
+
+    }
+    function getcc(t){
+        var cc=$(t).text()
+        $("#showcc").val("城市"+ct+"小区"+cc)
+        $("#community").val(cc);
+        $(".main").show();
+        $("#selecttt").css("display","none");
+    }
+
+
+
     //验证手机号码的有效性
     function vaphoneNumber(){
         var sMobile = $("#phoneNumber").val();
         if(!(/^1[3|4|5|8][0-9]\d{4,8}$/.test(sMobile)) || sMobile.length!=11){
             $("#spanphoneNumber").text("不是完整的11位手机号或者不是正确手机号码")
             flag=false;
-            return false;
         }else{
             $("#spanphoneNumber").text("")
+            flag=true;
         }
     }
+
+
+    //查看手机号是否存在
+    function testphoneNumber(){
+        var phoneNumber=$("#phoneNumber").val();
+        $.ajax({
+            url:"/user/vaphonenumber",
+            type:"post",
+            data:{phoneNumber:phoneNumber},
+            success:function (data) {
+                if(data=="have"){
+                    $("#spanphoneNumber1").text("手机已经存在")
+                    flag=false;
+                }else{
+                    $("#spanphoneNumber1").text("")
+                    flag=true;
+                }
+            }
+        })
+    }
+
+
     //验证实名必填
     function vaname(){
         var name=$("#name").val();
         if(name==null || name==""){
             $("#spanname").text("实名不能为空");
             flag=false;
-            return false;
         }else{
             $("#spanname").text("")
+            flag=true;
         }
-    }
-    //验证城市必选
-    function vacity(){
-        var city=$("#city").val();
-        if(city==null || city=="" || city=="城市"){
-            $("#spancity").text("城市不能为空");
-            flag=false;
-            return false;
-        }else{
-            $("#spancity").text("")
-        }
-    }
-    //验证小区必选
-    function vacommunity(){
-        var community=$("#community").val();
-        if(community==null || community=="" || community=="小区"){
-            $("#spancommunity").text("小区名不能为空");
-            flag=false;
-            return false;
-        }else{
-            $("#spancommunity").text("")
-        }
-
     }
     //验证地址必填
     function vaaddress(){
@@ -100,9 +246,9 @@
         if(address==null || address==""){
             $("#spanaddress").text("地址不能为空");
             flag=false;
-            return false;
         }else{
             $("#spanaddress").text("");
+            flag=true;
         }
     }
     //验证密码必填
@@ -111,9 +257,9 @@
         if(password==null || password==""){
             $("#spanpassword").text("密码不能为空");
             flag=false;
-            return false;
         }else{
             $("#spanpassword").text("");
+            flag=true;
         }
     }
     //验证确认密码必填
@@ -123,27 +269,18 @@
         if(repassword==null || repassword==""){
             $("#spanrepassword").text("确认密码不能为空");
             flag=false;
-            return false;
         }else{
             if(password===repassword){
                 $("#spanrepassword").text("密码可用")
+                flag=true;
             }else{
                 $("#spanrepassword").text("两次密码不一致");
                 flag=false;
-                return false;
             }
         }
     }
 
 
-    //获取城市数据放入hidden中
-    function getcity(){
-        $("#city").val($("#selectcity").find("option:selected").text());
-    }
-    //获取小区数据放入hidden中
-    function getcommunity(){
-        $("#community").val($("#selectcommunity").find("option:selected").text());
-    }
 
     //获得随机验证码
     var wait=0;
@@ -175,42 +312,52 @@
         if(validata==null ||validata==""){
             $("#spanvalidata").text("请输入验证码");
             flag=false;
-            return false;
         }else{
             if(validata==number){
                 $("#spanvalidata").text("验证码正确");
+                flag=true;
             }else{
                 $("#spanvalidata").text("验证码有误");
                 flag=false;
-                return false;
             }
         }
     }
 
-    function vasubmit(){
-        if(!flag){
-            return false;
-        }
+
+function test() {
+        alert(flag)
+    if(flag){
+        submit1();
+    }else{
+        return false;
     }
+}
 
 
     //提交
-    function submit(){
-        var formdata=$("#form").serialize();
+    function submit1(){
+        var phoneNumber=$("#phoneNumber").val();
+       var nickname= $("#nickname").val();
+     var  name =  $("#name").val();
+     var  city=   $("#city").val();
+      var community = $("#community").val();
+      var  address = $("#address").val();
+       var password= $("#password").val();
+
         $.ajax({
             type:"post",
             url:"/user/register",
-            data:formdata,
+            data:{phoneNumber:phoneNumber,nickname:nickname,name:name,city:city,community:community,address:address,password:password},
             success: function (data) {
                 if(data=="success"){
                     alert("注册成功")
-                    window.location.href="/"
+                    window.location.href="/user/goLogin"
                 }else{
-                    alert("注册失败")
                 }
             }
-    });
+        })
     }
+
 
     /*]]> */
 </script>

@@ -1,6 +1,7 @@
 package com.shigan.controller;
 
 import com.shigan.pojo.Ad;
+import com.shigan.pojo.CityCommunity;
 import com.shigan.pojo.User;
 import com.shigan.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,7 +17,9 @@ import sun.misc.Request;
 import javax.servlet.ServletRequest;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 /**
  * Created by Administrator on 2017/6/26.
@@ -31,7 +34,14 @@ public class UserController {
 
     //跳转到注册页面
     @RequestMapping("goRegister")
-    public String goRegister(){
+    public String goRegister(Model model){
+
+
+        List<CityCommunity> list = userService.getCommunity();
+        model.addAttribute("communitys",list);
+
+        List<CityCommunity> ctiys = userService.getCtiys();
+        model.addAttribute("citys",ctiys);
         return "register";
     }
 
@@ -97,6 +107,7 @@ public class UserController {
     }
 
 
+
     //实现密码修改
     @PostMapping("modify")
     @ResponseBody
@@ -126,7 +137,22 @@ public class UserController {
         List<Ad> ads = userService.getAdByAdId(ad);
 
         return "success";
+    }
 
+
+    @PostMapping("vaphonenumber")
+    @ResponseBody
+    public String vaphonenumber(HttpServletRequest request){
+        String phoneNumber = request.getParameter("phoneNumber");
+        User user=new User();
+        user.setPhoneNumber(phoneNumber);
+        User u1 = userService.getPhoneNumber(user);
+        if(u1!=null){
+            return "have";
+        }else{
+            return "faild";
+        }
     }
 
 }
+

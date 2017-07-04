@@ -12,6 +12,10 @@
 	height: 200px;
 	width: 100%;
 	background-color: #F54866;
+	display: flex;
+	display: -webkit-flex;
+	flex-flow: row nowrap;
+	justify-content: flex-start;
 }
 .title{
 	height: 250px;
@@ -26,7 +30,7 @@
 	justify-content: flex-start;
 }
 .business{
-	height: 580px;
+	height: 600px;
 	width: 100%;
 	display: flex;
 	display: -webkit-flex;

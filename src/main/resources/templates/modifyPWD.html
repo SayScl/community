@@ -16,35 +16,36 @@
 
 	<div class="content">
 		<div>
-			<p style="font-size: 1.2em;color: floralwhite;margin-top: 100px;">手机</p>
-			<input type="text" id="phoneNumber" onblur="vaphoneNumber()" style="border: none;background-color: transparent;border-bottom:1px solid white;margin: 5px;"  size="60px"/>
+			<p style="font-size: 2.5em;color: floralwhite;margin-top: 100px;">手机</p>
+			<input type="text" id="phoneNumber" onblur="vaphoneNumber()" style="height:40px;border: none;background-color: transparent;border-bottom:1px solid white;margin: 5px;font-size: 1.5em"  size="70px"/>
 			<p id="spanphoneNumber" style="color: burlywood;"></p>
+			<p id="spanphoneNumber1" style="color: burlywood;"></p>
 		</div>
 
 		<div style="margin-top: 40px">
-			<span  style="font-size: 1.2em;color: floralwhite;margin-top: 100px;">短信验证</span>
+			<span  style="font-size: 2.5em;color: floralwhite;margin-top: 100px;">短信验证</span>
 			&nbsp;&nbsp;<input id="number" style="background-color: transparent;border: none;"/>
 			<button onclick="time(this)"  style="background-color: transparent;border: 1px solid floralwhite;border-radius: 25px;margin-top: 20px;width: 150px;margin-left: 60px;">
-				<p id="getNumber" style="font-size: 1.3em;color: whitesmoke;">获取验证码</p>
+				<p id="getNumber" style="font-size: 2em;color: whitesmoke;">获取验证码</p>
 			</button>
-			<p><input type="text" id="validata" onblur="vavalidata()" style="border: none;background-color: transparent;border-bottom:1px solid white;margin: 5px;"  size="60px"/></p>
+			<p><input type="text" id="validata" onblur="vavalidata(),testphoneNumber()" style="height:40px;border: none;background-color: transparent;border-bottom:1px solid white;margin: 5px;font-size: 1.5em"  size="70px"/></p>
 			<p id="spanvalidata" style="color: burlywood;"></p>
 		</div>
 
 		<div>
-			<p style="font-size: 1.2em;color: floralwhite;margin-top: 50px;">新密码</p>
-			<input type="text" onblur="vapassword()" id="password" style="border: none;background-color: transparent;border-bottom:1px solid white;margin: 5px;"  size="60px"/>
+			<p style="font-size: 2.5em;color: floralwhite;margin-top: 50px;">新密码</p>
+			<input type="text" onblur="vapassword()" id="password" style="height:40px;border: none;background-color: transparent;border-bottom:1px solid white;margin: 5px;font-size: 1.5em"  size="70px"/>
 			<p id="spanpassword" style="color: burlywood;"></p>
 		</div>
 
 		<div>
-			<p style="font-size: 1.2em;color: floralwhite;margin-top: 50px;">确认密码</p>
-			<input type="text" onblur="varepassword()" id="repassword" style="border: none;background-color: transparent;border-bottom:1px solid white;margin: 5px;"  size="60px"/>
+			<p style="font-size: 2.5em;color: floralwhite;margin-top: 50px;">确认密码</p>
+			<input type="text" onblur="varepassword()" id="repassword" style="height:40px;border: none;background-color: transparent;border-bottom:1px solid white;margin: 5px;font-size: 1.5em"  size="70px"/>
 			<p id="spanrepassword" style="color: burlywood;"></p>
 		</div>
 		<div>
 			<button onclick="vaphoneNumber(),vavalidata(),vapassword(),varepassword(),modify()" style="background-color: transparent;border: 1px solid floralwhite;border-radius: 25px;margin-top: 20px;width: 400px;height: 50px;">
-				<p style="font-size: 1.8em;color: whitesmoke;">找回密码</p>
+				<p style="font-size: 2em;color: whitesmoke;">找回密码</p>
 				<p style="font-size:3em;color: whitesmoke;" id="tip"></p>
 			</button>
 		</div>
@@ -139,6 +140,31 @@
             }
         }
     }
+
+
+    //查看手机号是否存在
+    function testphoneNumber(){
+        var phoneNumber=$("#phoneNumber").val();
+        $.ajax({
+            url:"/user/vaphonenumber",
+            type:"post",
+            data:{phoneNumber:phoneNumber},
+            success:function (data) {
+                if(data=="have"){
+                    $("#spanphoneNumber1").text("")
+                    return true;
+                    }else{
+                    $("#spanphoneNumber1").text("手机不存在")
+					return false;
+                    }
+            }
+        })
+    }
+
+
+
+
+
 //修改密码
     function modify(){
         var phoneNumber=$("#phoneNumber").val();

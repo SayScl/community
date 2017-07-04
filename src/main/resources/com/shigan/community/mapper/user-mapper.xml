@@ -23,6 +23,25 @@
             <result property="path" column="path"></result>
         </resultMap>
 
+
+
+    <!--城市与小区-->
+        <resultMap id="ccMap" type="cityCommunity">
+            <id property="id" column="id"></id>
+            <result property="cityName" column="city_name"></result>
+            <result property="parentId" column="parent_id"></result>
+            <result property="community" column="community"></result>
+            <result property="cityid" column="cityid"></result>
+        </resultMap>
+
+
+    <!--功能列表-->
+    <resultMap id="limitMap" type="limit">
+        <id property="id" column="id"></id>
+        <result property="limitname" column="limitname"></result>
+        <result property="path" column="path"></result>
+    </resultMap>
+
     <insert id="register">
         insert into user (
         phone_number,
@@ -43,9 +62,15 @@
         )
     </insert>
 
+    <!--查找账号密码正确的用户-->
     <select id="getOne" parameterType="user" resultMap="userMap">
         select * from user where phone_number=#{phoneNumber} and password=#{password};
     </select>
+
+    <!--查找是否存在手机号-->
+    <select id="getPhoneNumber" parameterType="user" resultMap="userMap">
+        select phone_number from user where phone_number=#{phoneNumber}
+</select>
 
     <update id="modify" parameterType="user">
       update user set password=#{password} where phone_number=#{phoneNumber}
@@ -55,5 +80,28 @@
     <!--查找广告位-->
     <select id="getAdByAdId" parameterType="ad" resultMap="adMap">
         select * from ad where adlocationid=#{adlocationid}
+    </select>
+
+
+    <!--查城市-->
+    <select id="getCtiys" resultMap="ccMap">
+        select DISTINCT city_name,cityid from city
+    </select>
+
+    <!--根据城市id查找小区-->
+    <select id="getCommunityByCityId" parameterType="cityCommunity" resultMap="ccMap">
+
+        select  community from city where parent_id=#{parentId};
+    </select>
+
+
+    <!--查小区-->
+    <select id="getCommunity" resultMap="ccMap">
+        select  community ,parent_id from city where parent_id is not null
+    </select>
+
+    <!--查询所有功能-->
+    <select id="getLimits" resultMap="limitMap">
+        SELECT * from limitfunction
     </select>
 </mapper>
