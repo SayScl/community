@@ -102,13 +102,13 @@
 
         <div style="margin-top: 30px;">
             <span style="font-size: 1.2em;color: floralwhite;margin-top: 50px;">登录密码</span>
-            <input type="text" name="password" id="password" onblur="vapassword()" style="border: none;background-color: transparent;border-bottom:1px solid white;margin: 5px;height: 40px;font-size: 1.1em"  size="35px"></input>*
+            <input type="password" name="password" id="password" onblur="vapassword()" style="border: none;background-color: transparent;border-bottom:1px solid white;margin: 5px;height: 40px;font-size: 1.1em"  size="35px"></input>*
             <p id="spanpassword"></p></div>
 
 
         <div style="margin-top: 30px;">
             <span style="font-size: 1.2em;color: floralwhite;margin-top: 50px;">确认密码</span>
-            <input type="text" id="repassword" onblur="varepassword()" style="border: none;background-color: transparent;border-bottom:1px solid white;margin: 5px;height: 40px;font-size: 1.1em"  size="35px"></input>*
+            <input type="password" id="repassword" onblur="varepassword()" style="border: none;background-color: transparent;border-bottom:1px solid white;margin: 5px;height: 40px;font-size: 1.1em"  size="35px"></input>*
             <p id="spanrepassword"></p>
         </div>
 
@@ -325,13 +325,33 @@
 
 
 function test() {
-        alert(flag)
     if(flag){
         submit1();
     }else{
         return false;
     }
 }
+
+
+    function login(phoneNumber,password){
+        $.ajax({
+                url:"/user/login",
+                type:"post",
+                data:{phoneNumber:phoneNumber,password:password},
+                success:function(data){
+                    if(data=="success"){
+                        window.location.href="/";
+                    }else{
+                        alert("账号或密码不正确，请重新登录")
+                    }
+                },
+
+            }
+        )
+
+    }
+
+
 
 
     //提交
@@ -349,9 +369,9 @@ function test() {
             url:"/user/register",
             data:{phoneNumber:phoneNumber,nickname:nickname,name:name,city:city,community:community,address:address,password:password},
             success: function (data) {
-                if(data=="success"){
+                if(data.success=="success"){
                     alert("注册成功")
-                    window.location.href="/user/goLogin"
+                    login(data.phoneNumber,data.password)
                 }else{
                 }
             }

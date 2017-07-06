@@ -61,9 +61,10 @@ public class UserController {
     //注册
     @PostMapping("/register")
     @ResponseBody
-    public String register(Model model,@RequestParam String phoneNumber,@RequestParam String nickname,
+    public Map<String,String> register(Model model,@RequestParam String phoneNumber,@RequestParam String nickname,
                            @RequestParam String name,@RequestParam String city,@RequestParam String community,
                            @RequestParam String address,@RequestParam String password){
+        Map<String,String > map=new HashMap<String,String>();
 
         User user=new User();
         user.setPhoneNumber(phoneNumber);
@@ -79,9 +80,13 @@ public class UserController {
         user.setPassword(password);
         int rows = userService.register(user);
         if(rows>0){
-           return "success";
-        }else {
-            return "faild";
+            map.put("success","success");
+            map.put("phoneNumber",phoneNumber);
+            map.put("password",password);
+           return map;
+        }else{
+            map.put("success","faild");
+            return map;
         }
     }
 
