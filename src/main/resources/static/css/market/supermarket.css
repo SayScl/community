@@ -1,0 +1,78 @@
+*{
+	margin: 0;
+	padding: 0;	
+}
+.main{
+	display: flex;
+	display: -webkit-flex;
+	flex-flow: column nowrap;
+}
+.top{
+	display: flex;
+	display: -webkit-flex;
+	flex-flow: column nowrap;
+	height: 30%;
+	background-color:#D43F5D;
+}
+.one{
+	display: flex;
+	display: -webkit-flex;
+	flex-flow: row nowrap;
+	justify-content: flex-start;
+	
+}
+.two{
+	margin-top: 15px;
+	display: flex;
+	display: -webkit-flex;
+	flex-flow: row nowrap;
+	justify-content: center;
+}
+.center{
+	height: 40%;
+}
+.cone{
+	display: flex;
+	display: -webkit-flex;
+	flex-flow: row nowrap;
+	justify-content: center;
+}
+.floor{
+	display: flex;
+	display:-webkit-flex;
+	flex-flow: row nowrap;
+	justify-content: center;
+	background-color: darkgray;
+	opacity: 0.5;
+	z-index: -1;
+}
+.nn{
+	display: none;
+}
+.sub{
+	height:20px;width:20px;border-radius: 10px;
+}
+.plus{
+	height:20px;width:20px;border-radius: 10px;
+}
+.shopcarpic{
+	margin-right: 20px;"><img style="width: 100px;
+}
+.shopcarinfo{
+	display: flex;display: -webkit-flex;flex-flow: row nowrap;margin: auto;
+}
+.toshopcar{
+padding-left: 10px;line-height: 75px;text-align:center;font-size: 1.5em;color: white;cursor: pointer;
+}
+.toshopcardiv{
+	width:150px;margin-left: 20px;height: 80px;background-color:#F24268;
+}
+.floor1{
+	display: flex;
+	display:-webkit-flex;
+	flex-flow: row nowrap;
+	justify-content: center;
+	background-color: darkgray;
+	opacity: 0.5;
+	z-index: -1;
+}

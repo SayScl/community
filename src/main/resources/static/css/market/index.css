@@ -1,0 +1,41 @@
+@charset "utf-8";
+/* CSS Document */
+body{ margin:0px; padding:0px; color:#000; font-size:1em;font-family:"微软雅黑";}
+a{ color:#000; text-decoration:none;}
+a:hover{ color:#000; text-decoration:none;}
+ul,li,dl,dd,dt,p,input,span,form,h1{ margin:0px; padding:0px; list-style:none;}
+img{ border:none;}
+
+/*整体大小*/
+.i_zxme{ width:960px; height:350px; margin:0px auto; margin-top:30px; }
+/*整体大小*/
+.i_zxmel{ width:708px; float:left; height:315px; float:left;}
+.i_zxmelt{ width:708px; height:30px; border-bottom:2px solid #694231; }
+.i_zxmelt{ width:708px; height:30px; border-bottom:2px solid #694231; font-size:18px; font-weight:bold; color:#d13600;font-family: "微软雅黑";}
+.i_zxmelt a{ color:#d13600;}
+.i_zxmelt a:hover{color:#6a3d20;}
+.i_zxmelt span{ float:right; font-size:1em; line-height:32px;}
+/*又一个整体大小*/
+.i_zxmelc{ width:708px; height:350px;}
+.i_zxmelc1{ width:100px; height:288px; float:left;}
+/*左侧底纹大小*/
+.i_zxmelc1 ul{ width:85px; background-color: #EBE9EA;}
+.i_zxmelc1 ul li{ width:70px; height:40px; border-bottom:2px solid #FFF; font-size:1em; line-height:27px; padding-left:15px;}
+/*左侧单个底纹*/
+.i_zxmelc1 ul li.hover{ width:70px; height:40px; background-color: whitesmoke; }
+/*点以后的颜色*/
+.i_zxmelc1 ul li.hover a{ color:whitesmoke;}
+/*右侧图片*/
+.i_zxmelc3{ width:606px; height:288px; float:left;}
+/*右侧内容*/
+.i_zxmelc3d{ width: 403px;margin-left: 1px}
+.shops{display:flex;display: -webkit-flex;flex-flow: row nowrap;align-items: flex-start;}
+.i_zxmelc33{ width:473px; height:80px; padding-top:10px;}
+.i_zxmelc33 img{ border:1px solid #dcdcdc; padding:2px; margin-right:13px;}
+.i_zxmer{ width:242px; height:310px; float:right; padding-top:5px;}
+
+/* simplefoucs_lrtk.css */
+.xiamgmu{ width:935px; height:57px; margin:0px auto; margin-top:5px; font-size:1em;padding-left:25px; padding-top:5px; border:1px solid #e2e2e2;}
+.xiamgmu li{ width:93px; float:left; line-height:25px; font-size:1em;}
+.xiamgmu a{ color:#333;}
+.xiamgmu a:hover{ color:#af092c; }

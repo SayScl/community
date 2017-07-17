@@ -34,7 +34,7 @@
 
     <div class="channel">
         <div style="height: 200px;width: 180px;margin-left:50px;" th:each="limit:${limits}">
-            <a th:if="${stat=='login'}" href="#"><img th:src="${limit.path}"/></a>
+            <a th:if="${stat=='login'}" th:href="${limit.url}"><img th:src="${limit.path}"/></a>
             <a th:if="${stat=='nologin'}" th:href="@{/user/goLogin}"><img th:src="${limit.path}"/></a>
         </div>
     </div>

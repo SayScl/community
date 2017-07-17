@@ -40,6 +40,7 @@
         <id property="id" column="id"></id>
         <result property="limitname" column="limitname"></result>
         <result property="path" column="path"></result>
+        <result property="url" column="url"></result>
     </resultMap>
 
     <insert id="register">

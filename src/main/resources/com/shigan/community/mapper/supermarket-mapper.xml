@@ -1,0 +1,99 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.shigan.mapper.SupermarketMapper">
+
+    <!--商品Map-->
+    <resultMap id="productMap" type="product">
+        <id property="id" column="id"></id>
+        <result property="productname" column="productname"></result>
+        <result property="brandname" column="brandname"></result>
+        <result property="brandid" column="brandid"></result>
+        <result property="isshow" column="isshow"></result>
+        <result property="updown" column="updown"></result>
+        <result property="skuid" column="skuid"></result>
+        <result property="categoryid" column="categoryid"></result>
+        <result property="skuname" column="skuname"></result>
+        <result property="price" column="price"></result>
+        <result property="store" column="store"></result>
+        <result property="storewarning" column="storewarning"></result>
+        <result property="path" column="path"></result>
+        <result property="description" column="description"></result>
+        <result property="propertyid" column="propertyid"></result>
+        <result property="propertyname" column="propertyname"></result>
+    </resultMap>
+
+
+    <!--超市分类map-->
+    <resultMap id="categoryMap" type="category">
+        <id property="id" column="id"></id>
+        <result property="categoryname" column="categoryname"></result>
+        <result property="isshow" column="isshow"></result>
+    </resultMap>
+
+<!--购物车Map-->
+    <resultMap id="shopcarMap" type="shopcar">
+        <id property="id" column="id"></id>
+        <result property="userid" column="userid"></result>
+        <result property="communityid" column="communityid"></result>
+        <result property="totalprice" column="totalprice"></result>
+        <result property="itemsid" column="itemsid"></result>
+    </resultMap>
+
+    <!--购物项Map-->
+    <resultMap id="shopcaritemsMap" type="shopcaritems">
+        <id property="id" column="id"></id>
+        <result property="productid" column="productid"></result>
+        <result property="productcount" column="productcount"></result>
+        <result property="userid" column="userid"></result>
+        <result property="producttotalprice" column="producttotalprice"></result>
+    </resultMap>
+
+
+    <!--查找分类-->
+    <select id="getcategory" resultMap="categoryMap">
+        select * from category where isshow=1
+    </select>
+
+
+    <!--根据分类id查找商品详细信息-->
+    <select id="getproductinfoByCategoryid" parameterType="java.lang.Integer" resultMap="productMap">
+        SELECT a.*,pro.propertyname
+           FROM
+              (SELECT p.id, p.productname,p.brandname,p.skuid,s.skuname,s.price,
+               s.store,s.storewarning,s.path,s.description,s.propertyid
+                    FROM
+                      product p
+                    LEFT JOIN sku s ON p.skuid=s.id where p.categoryid=#{categoryid})
+            AS a LEFT JOIN  property pro ON a.propertyid=pro.id
+    </select>
+
+    <!--根据id查找商品信息-->
+    <select id="getproductinfoById" parameterType="java.lang.Integer" resultMap="productMap">
+         SELECT a.*,pro.propertyname
+           FROM
+              (SELECT p.id, p.productname,p.brandname,p.skuid,s.skuname,s.price,
+               s.store,s.storewarning,s.path,s.description,s.propertyid
+                    FROM
+                      product p
+                    LEFT JOIN sku s ON p.skuid=s.id where p.id=#{productid})
+            AS a LEFT JOIN  property pro ON a.propertyid=pro.id
+    </select>
+
+    <!--增加到购物项-->
+    <insert id="addshopcaritems" parameterType="shopcaritems">
+        insert into shopcaritems values(null,#{productid},#{productcount},#{producttotalprice},#{userid})
+    </insert>
+
+    <!--根据用户查购物项-->
+    <select id="getshopcaritemsbyuserid" parameterType="java.lang.Integer" resultMap="shopcaritemsMap">
+        select * from shopcaritems where userid=#{userid}
+    </select>
+
+    <!--增加购物车-->
+    <insert id="addshopcar" parameterType="shopcar">
+        insert into shopcar values(null,#{userid},#{communityid},#{totalprice},#{itemsid})
+    </insert>
+
+</mapper>
