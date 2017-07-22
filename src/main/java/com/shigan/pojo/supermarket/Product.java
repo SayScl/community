@@ -13,6 +13,16 @@ public class Product {
     private Integer updown;
     private Integer skuid;
     private Integer categoryid;
+    //已选商品数量
+    private Integer productcount;
+
+    public Integer getProductcount() {
+        return productcount;
+    }
+
+    public void setProductcount(Integer productcount) {
+        this.productcount = productcount;
+    }
 
     public Integer getId() {
         return id;

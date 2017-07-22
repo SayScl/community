@@ -28,4 +28,17 @@ public class ProductServiceImpl implements ProductService {
         Product products = supermarketMapper.getproductinfoById(productid);
         return products;
     }
+
+    @Override
+    public Product getproductbynameprice(Product product) {
+        Product getproductbynameprice = supermarketMapper.getproductbynameprice(product);
+        return getproductbynameprice;
+    }
+
+    //修改商品库存
+    @Override
+    public int updateproductbynameprice(Product product) {
+        int updateproductbynameprice = supermarketMapper.updateproductbynameprice(product);
+        return updateproductbynameprice;
+    }
 }

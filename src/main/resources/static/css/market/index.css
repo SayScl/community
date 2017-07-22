@@ -1,6 +1,6 @@
 @charset "utf-8";
 /* CSS Document */
-body{ margin:0px; padding:0px; color:#000; font-size:1em;font-family:"微软雅黑";}
+body{ margin:0px; padding:0px;  font-size:1em;font-family:"微软雅黑";}
 a{ color:#000; text-decoration:none;}
 a:hover{ color:#000; text-decoration:none;}
 ul,li,dl,dd,dt,p,input,span,form,h1{ margin:0px; padding:0px; list-style:none;}

@@ -1,0 +1,36 @@
+*{
+	padding: 0;
+	margin: 0;
+}
+.top{
+	height: 200px;
+    background-color: #F44667;
+    display: flex;
+    display: -webkit-flex;
+    flex-flow: row nowrap;
+    justify-content: flex-start;
+}
+.topone{
+	width: 36%;margin-top: 40px;
+}
+.toptwo{
+	margin-top: 40px;
+}
+.center{
+    display: flex;
+    display: -webkit-flex;
+    flex-flow: column nowrap;
+    font-size: 2.5em;
+}
+.centerone{
+    display: flex;display: -webkit-flex;flex-flow: row nowrap;justify-content: flex-start
+}
+.centertwo{
+    display: flex;display: -webkit-flex;flex-flow: column nowrap;justify-content: flex-start
+}
+.submit{
+    height: 100px;width: 80%;background-color: #F24268;margin: auto
+}
+.submitone{
+    width:100px;color: white;margin: auto;padding-top: 30px
+}

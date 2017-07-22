@@ -16,4 +16,10 @@ public interface ProductService {
 
     //<!--根据id查找商品信息-->
     public Product getproductinfoById(Integer productid);
+
+    //<!--根据名字和价格查商品信息-->
+    public Product getproductbynameprice(Product product);
+
+    //<!--修改信息-->
+    public int updateproductbynameprice(Product product);
 }

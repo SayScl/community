@@ -48,8 +48,43 @@
         <result property="productcount" column="productcount"></result>
         <result property="userid" column="userid"></result>
         <result property="producttotalprice" column="producttotalprice"></result>
+        <result property="productname" column="productname"></result>
     </resultMap>
 
+
+    <!--订单Map-->
+    <resultMap id="orderMap" type="order">
+        <id property="id" column="id"></id>
+        <result property="orderid" column="orderid"></result>
+        <result property="userid" column="userid"></result>
+        <result property="name" column="name"></result>
+        <result property="address" column="address"></result>
+        <result property="shoplist" column="shoplist"></result>
+        <result property="totalprice" column="totalprice"></result>
+        <result property="time" column="time"></result>
+        <result property="play" column="play"></result>
+        <result property="playstatu" column="playstatu"></result>
+        <result property="evaluatestatu" column="evaluatestatu"></result>
+        <result property="count" column="count"></result>
+        <result property="createtime" column="createtime"></result>
+        <result property="sendstatu" column="sendstatu"></result>
+        <result property="path" column="path"></result>
+        <result property="phonenumber" column="phonenumber"></result>
+        <result property="communityid" column="communityid"></result>
+    </resultMap>
+
+
+    <!--评价Map-->
+    <resultMap id="discussMap" type="disscuss">
+        <id property="id" column="id"></id>
+        <result property="content" column="content"></result>
+        <result property="path" column="path"></result>
+        <result property="modelid" column="modelid"></result>
+        <result property="userid" column="userid"></result>
+        <result property="createtime" column="createtime"></result>
+        <result property="name" column="name"></result>
+        <result property="communityid" column="communityid"></result>
+    </resultMap>
 
     <!--查找分类-->
     <select id="getcategory" resultMap="categoryMap">
@@ -81,19 +116,152 @@
             AS a LEFT JOIN  property pro ON a.propertyid=pro.id
     </select>
 
+
+
+
+
+<!--根据名字和价格查商品信息-->
+    <select id="getproductbynameprice" parameterType="product" resultMap="productMap">
+        SELECT p.id, p.productname,p.brandname,p.skuid,s.skuname,s.price,
+        s.store,s.storewarning,s.path,s.description,s.propertyid
+        FROM
+        product p
+        LEFT JOIN sku s ON p.skuid=s.id where p.productname=#{productname} and s.price=#{price}
+    </select>
+
+
+
+    <!--修改信息-->
+    <update id="updateproductbynameprice" parameterType="product" >
+       update sku s left join product p on s.id=p.skuid set store=#{store} where s.price=#{price} and p.productname=#{productname}
+    </update>
+
     <!--增加到购物项-->
     <insert id="addshopcaritems" parameterType="shopcaritems">
-        insert into shopcaritems values(null,#{productid},#{productcount},#{producttotalprice},#{userid})
+        insert into shopcaritems values(null,#{productid},#{productcount},#{producttotalprice},#{userid},#{productname})
     </insert>
+
+    <!--修改购物项商品名字-->
+    <update id="updateshopcaritemsproductnamebyproductid" parameterType="shopcaritems">
+        UPDATE shopcaritems set productname=#{productname} where productid=#{productid}
+    </update>
+
+    <!--根据商品id查找购物项-->
+    <select id="getshopcaritemsbyproductid" parameterType="java.lang.Integer" resultMap="shopcaritemsMap">
+        SELECT * from shopcaritems where productid=#{productid}
+    </select>
 
     <!--根据用户查购物项-->
     <select id="getshopcaritemsbyuserid" parameterType="java.lang.Integer" resultMap="shopcaritemsMap">
         select * from shopcaritems where userid=#{userid}
     </select>
 
+    <!--根据id查购物项-->
+    <select id="getshopcaritemsbyid" parameterType="java.util.List" resultMap="shopcaritemsMap">
+        select * from shopcaritems where id in
+        <foreach collection="list" open="(" separator="," close=")" item="id">
+            #{id}
+        </foreach>
+    </select>
+
+    <!--根据商品id修改购物项-->
+    <update id="updatebyproductid" parameterType="shopcaritems">
+        update shopcaritems
+        <set>
+            <if test="productcount!=null and productcount!=''">productcount=#{productcount},</if>
+            <if test="producttotalprice!=null and producttotalprice!=''">producttotalprice=#{producttotalprice}</if>
+        </set>
+        where productid=#{productid}
+    </update>
+
+    <!--根据用户id查购物项数量-->
+    <select id="getcountshopcaritems" parameterType="java.lang.Integer" resultType="java.lang.Integer">
+        select count(*) from shopcaritems where userid=#{userid}
+    </select>
+
+
+    <!--根据用户id删除购物项-->
+    <delete id="deleteshopcaritemsbyuserid" parameterType="java.lang.Integer">
+        delete from shopcaritems where userid=#{userid}
+    </delete>
+
+
+    <!--根据商品Id删除购物项-->
+    <delete id="deleteshopcaritemsbyproductid" parameterType="java.lang.Integer">
+        delete from shopcaritems where productid=#{productid}
+    </delete>
+
+
+
     <!--增加购物车-->
     <insert id="addshopcar" parameterType="shopcar">
         insert into shopcar values(null,#{userid},#{communityid},#{totalprice},#{itemsid})
+    </insert>
+
+    <!--根据用户id修改用户购物车信息-->
+    <update id="updateshopcarbyuserid" parameterType="shopcar">
+        update shopcar
+        <set>
+            <if test="totalprice!=null and totalprice!=''">totalprice=#{totalprice},</if>
+            <if test="itemsid!=null and itemsid!=''">itemsid=#{itemsid}</if>
+        </set>
+        where userid=#{userid}
+    </update>
+
+    <!--查询该用户的购物车信息-->
+    <select id="getshopcarbyuserid" parameterType="shopcar" resultMap="shopcarMap">
+        select * from shopcar where userid=#{userid}
+    </select>
+
+    <!--根据用户id删除购物车-->
+    <delete id="deleteshopcarbyuserid" parameterType="java.lang.Integer">
+        delete from shopcar where userid=#{userid}
+    </delete>
+
+    <!--插入订单表-->
+    <insert id="addorder" parameterType="order">
+        insert into shoporder values(null,#{orderid},#{userid},#{name},#{address},#{shoplist},#{totalprice},#{time},#{play},#{playstatu},#{evaluatestatu},#{count},#{createtime},#{sendstatu},#{path},#{phonenumber},#{communityid})
+    </insert>
+
+    <!--修改支付状态-->
+    <update id="updateplaystatu" parameterType="order">
+        update shoporder set playstatu=#{playstatu},sendstatu=#{sendstatu},evaluatestatu=#{evaluatestatu} where orderid=#{orderid}
+    </update>
+
+    <!--查询该用户下的订单信息-->
+    <select id="getorderbyuserid" parameterType="java.lang.Integer" resultMap="orderMap">
+        select * from shoporder where userid=#{userid}
+    </select>
+
+    <!--根据id查订单-->
+    <select id="getorderbyid" parameterType="java.lang.Integer" resultMap="orderMap">
+        select * from shoporder where id=#{id}
+    </select>
+
+    <!--根据id修改支付状态-->
+    <update id="updateorderbyid" parameterType="java.lang.Integer">
+        update shoporder set playstatu=1,sendstatu=2 where id=#{id}
+    </update>
+
+    <!--根据id修配送状态与评论状态-->
+    <update id="updateotherstatubyid" parameterType="order">
+        update shoporder
+        <set>
+            <if test="sendstatu!=null and sendstatu!=''">sendstatu=#{sendstatu},</if>
+            <if test="evaluatestatu!=null and evaluatestatu!=''">evaluatestatu=#{evaluatestatu},</if>
+        </set>
+        where id=#{id}
+    </update>
+
+<!--查看当前模块的评论-->
+    <select id="getmarketdiscuss" parameterType="java.lang.Integer" resultMap="discussMap">
+        select * from discuss where modelid=1 and communityid=#{communityid}
+    </select>
+
+
+    <!--插入评价表-->
+    <insert id="adddisscuss" parameterType="disscuss">
+        insert into discuss values(null,#{content},#{path},#{modelid},#{userid},#{createtime},#{name},#{communityid})
     </insert>
 
 </mapper>

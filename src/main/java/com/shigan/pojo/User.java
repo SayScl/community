@@ -13,6 +13,15 @@ public class User {
     private String community;
     private String address;
     private String password;
+    private Integer communityid;
+
+    public Integer getCommunityid() {
+        return communityid;
+    }
+
+    public void setCommunityid(Integer communityid) {
+        this.communityid = communityid;
+    }
 
     public void setId(Integer id) {
         this.id = id;

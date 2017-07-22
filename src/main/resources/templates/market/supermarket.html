@@ -33,6 +33,7 @@
     </style>
     <link href="/css/market/index.css" rel="stylesheet" type="text/css"/>
     <link rel="stylesheet" href="/css/market/supermarket.css" />
+    <link rel="stylesheet" href="/css/market/lanrenzhijia.css"/>
 </head>
 <body>
 <div class="main">
@@ -44,7 +45,7 @@
         <div class="two">
             <div><img src="/img/supermarket/LOG.png"/></div>
             <div style="margin-left: 15px;">
-                <div style="margin-top: 30px;"><span style="font-size: 2em;color: white;">香榭水岸</span></div>
+                <div style="margin-top: 30px;"><span style="font-size: 2em;color: white;" th:text="${session.user.community}">香榭水岸</span></div>
                 <div><span style="font-size: 2em;color: white;">社区超市</span></div>
             </div>
         </div>
@@ -85,20 +86,22 @@
                                                 <span th:each="product:${category.products}">
                                                 <div class="shops">
                                                     <!--商品详情处-->
-                                                        <div style="margin-right: 2px"><img style="height: 100px;width: 90px" th:src="${product.path}"/></div>
-                                                        <div style="width:73px;display: flex;display: -webkit-flex;flex-flow: column nowrap">
+                                                        <div class="shopsdiv"><img class="shopsimg" th:src="${product.path}"/></div>
+                                                        <div class="shopsdivone">
                                                             <input th:id="'productid'+${iterStat.count}+${product.productname}" type="hidden" th:value="${product.id}"/>
-                                                            <div><span style="font-size: 0.7em;" th:text="${product.productname}"></span></div>
-                                                            <div><span style="font-size: 0.3em;color: darkgrey" th:text="${product.description}"></span></div>
-                                                            <div style="margin-top: 10px"><span style="font-size: 1em;color: red" th:text="'￥'+${product.price}"></span></div>
-                                                            <div ><span style="font-size: 0.1em;color: darkgrey;" th:text="'库存:'+${product.store}"></span></div>
+                                                            <div><span class="shopdivspanone" th:text="${product.productname}"></span></div>
+                                                            <div><span class="shopsdivspantwo" th:text="${product.description}"></span></div>
+                                                            <div class="shopsdivtwo"><span class="shopsdivtwospan" th:text="'￥'+${product.price}"></span></div>
+                                                            <div ><span  class="shopsdivthreespan" th:text="'库存:'+${product.store}"></span></div>
+                                                            <input th:id="'storewarning'+${iterStat.count}+${product.productname}" type="hidden" th:value="${product.storewarning}"/>
+                                                            <input type="hidden" th:id="'store'+${iterStat.count}+${product.productname}" th:value="${product.store}"/>
                                                         </div>
                                                     <!--加减图标处-->
-                                                        <div style="display: flex;display: -webkit-flex;flex-flow:row nowrap;align-self: flex-start;padding-bottom: 20px;margin-top: 50px">
+                                                        <div class="supplusdiv">
                                                                 <div th:id="${iterStat.count}+${product.productname}" onclick="sub(this)" class="sub"><img  src="/img/supermarket/1.png"/></div>
                                                                 <input type="hidden" th:id="'price'+${iterStat.count}+${product.productname}" th:value="${product.price}"/>
-                                                                <div style="height: 20px;width: 20px;margin-left: 14px;margin-top: 6px">
-                                                                    <span name="shownum" th:id="'shownum'+${iterStat.count}+${product.productname}">0</span>
+                                                                <div class="procutcountdiv">
+                                                                    <span name="shownum" th:id="'shownum'+${iterStat.count}+${product.productname}" th:text="${product.productcount}">0</span>
                                                                 </div>
                                                                 <div th:id="${iterStat.count}+${product.productname}" onclick="plus(this)" class="plus"><img  src="/img/supermarket/2.png"/></div>
                                                         </div>
@@ -120,27 +123,28 @@
                     <!--i_zxme全局-->
                     <!--前往购物车处-->
                     <div class="floor">
-                        <div class="shopcarpic"><img src="/img/supermarket/购物车.png"/></div>
+                        <div class="shopcarpic"><img class="shopcarimg" src="/img/supermarket/购物车.png"/></div>
                         <div class="shopcarinfo">
                             <div>
-                                <p  style="font-size: 2em;color: white"><span>￥</span><span id="smallcount"></span></p>
-                                <p  style="font-size: 0.7em;color: white"><span>当前购物车有</span><span id="count"></span><span >件商品</span></p>
+                                <p  style="font-size: 2em;color: white"><span>￥</span><span id="smallcount" th:text="${shopcar.totalprice}"></span></p>
+                                <p  style="font-size: 0.7em;color: white"><span>当前购物车有</span><span id="count" th:text="${shopcar.shopcaritemscount}"></span><span >件商品</span></p>
                             </div>
                             <div onclick="shopcar()" class="toshopcardiv"><span class="toshopcar">前往购物车</span></div>
                         </div>
                     </div>
                 </DIV>
                 <DIV id="blogs_spacerank_1" style="DISPLAY: none;">
-                    <table border="0" width="100%">
+                    <table name="tbb" border="0" width="100%" th:each="discuss,iterstatu:${discuss}">
                         <tr>
-                            <th rowspan="2" style="background-color: yellow;">图片</th>
-                            <th align="left">名字</th>
-                            <th align="right">评论时间</th>
+                            <th rowspan="3" width="150px"><img style="width: 100px" src="/img/supermarket/头像.png"/></th>
+                            <th align="left" th:text="${discuss.name}" >名字</th>
+                            <th align="right" th:text="${discuss.createtime}">评论时间</th>
                         </tr>
                         <tr>
-                            <th align="left">评论内容</th>
-                            <th>null</th>
+                            <th colspan="2" align="left" th:text="${discuss.content}">评论内容</th>
                         </tr>
+                        <input type="hidden" th:id="'img'+${iterstatu.index}" th:value="${discuss.path}"/>
+                        <tr th:id="'tabtr'+${iterstatu.index}"></tr>
                     </table>
                 </DIV>
             </DIV>
@@ -150,11 +154,39 @@
 
 </body>
 <script src="/jquery-3.1.1.min.js"></script>
+<script src="/js/jquery.imgbox.pack.js"></script>
 <script src="/js/market.js"></script>
 <script th:inline="javascript">
     /*<![CDATA[*/
+    $(function(){
+       var tbb= $("[name='tbb']");
+       for(var i=0;i<tbb.length;i++){
+          var img= $("#img"+i).val();
+          var imgs=img.split(",");
+          var html=$("#tabtr"+i).html();
+          for(var j=0;j<imgs.length;j++){
+            html=html+"<a onclick='showpic(this)' href='"+imgs[j]+"'>"+
+                "<img  style='width: 100px' src='"+imgs[j]+"' />"
+          }
+           $("#tabtr"+i).html(html);
+       }
+
+    })
+
+
+    function showpic(t){
+        $(t).imgbox({
+            'speedIn'	: 0,
+            'speedOut'	: 0,
+            'alignment': 'center',
+            'overlayShow': true,
+            'allowMultiple': false
+        });
+    }
+
+
     //小计
-    var smallcount=0;
+    var smallcount=parseFloat($("#smallcount").text());
     //单个商品数量
     var number;
     //点减号触发的函数
@@ -162,28 +194,35 @@
         var id=$(t).attr("id");
         var price=parseFloat($("#price"+id).val());
         var productid=$("#productid"+id).val();
+        var storewarning=$("#storewarning"+id).val();
+        var store=$("#store"+id).val();
         snumber=$("#shownum"+id).text();
         number=parseInt(snumber);
-        if(number>0){
-            number=number-1;
-            smallcount=smallcount-price;
-            $("#shownum"+id).text(number);
-            getproductid(productid,number);
+        if(parseInt(store)<=parseInt(storewarning)){
+            alert("商品库存不够,请选购其他商品");
         }else{
-            number=0;
-            if(smallcount<=0){
-                smallcount=0
+            if(number>0){
+                number=number-1;
+                smallcount=smallcount-price;
+                $("#shownum"+id).text(number);
+                getproductid(productid,number);
             }else{
-                if(number==0){
-                    smallcount=smallcount-0;
+                number=0;
+                if(smallcount<=0){
+                    smallcount=0
                 }else{
-                    smallcount=smallcount-price
+                    if(number==0){
+                        smallcount=smallcount-0;
+                    }else{
+                        smallcount=smallcount-price
+                    }
                 }
+                    $("#shownum"+id).text(number);
             }
-            $("#shownum"+id).text(number);
+            $("#smallcount").text(smallcount.toFixed(1))
+            count();
         }
-        $("#smallcount").text(smallcount)
-        count();
+
     }
     //点加号实现的方法
     function plus(t){
@@ -191,21 +230,28 @@
         var id=$(t).attr("id");
         snumber=$("#shownum"+id).text();
         var price=parseFloat($("#price"+id).val());
+        debugger
         var productid=$("#productid"+id).val();
+        var storewarning=$("#storewarning"+id).val();
+        var store=$("#store"+id).val();
         number=parseInt(snumber);
-        if(number>=10){
-            number=10;
-            $("#shownum"+id).text(number);
-            getproductid(productid,number);
-            alert("一次不能超过十件")
+        if(parseInt(store)<=parseInt(storewarning)){
+            alert("商品库存不够,请选购其他商品");
         }else{
-            number=number+1;
-            smallcount=smallcount+price;
-            $("#shownum"+id).text(number);
-            getproductid(productid,number);
+            if(number>=10){
+                number=10;
+                $("#shownum"+id).text(number);
+                getproductid(productid,number);
+                alert("一次不能超过十件")
+            }else{
+                number=number+1;
+                smallcount=smallcount+price;
+                $("#shownum"+id).text(number);
+                getproductid(productid,number);
+            }
+            $("#smallcount").text(smallcount.toFixed(1))
+            count();
         }
-        $("#smallcount").text(smallcount)
-        count();
     }
 
 
@@ -270,24 +316,28 @@
             contentType:"application/json",
             success:function(data){
                 var html="";
-                for(var i=0;i<data.shopcaritems.length;i++){
-                    html= html+ "<div>"+
-                            "<span>"+data.shopcaritems[i].productname+"</span>"+
-                            "<span>"+data.shopcaritems[i].producttotalprice+"</span>"+
-                            "<span>"+data.shopcaritems[i].productcount+"</span>"+
-                            "<span  class='sub'><img  src='/img/supermarket/1.png'/></span>"+
-                            "<span class='plus' ><img  src='/img/supermarket/2.png'/></span>"+
+                for(var i=0;i<data.shopcar.shopcaritems.length;i++){
+                    html= html+ "<div class='supplusdiv'  id='supplusdiv"+i+"'>"+
+                            "<div><span>"+data.shopcar.shopcaritems[i].productname+"</span></div>"+
+                            "<input id='oproductid"+i+"' type='hidden' value='"+data.shopcar.shopcaritems[i].productid+"'>"+
+                            "<div><span id='oproducttotalprice"+i+"'>"+data.shopcar.shopcaritems[i].producttotalprice+"</span></div>"+
+                            "<input id='oldtotalprice"+i+"' type='hidden' value='"+data.shopcar.shopcaritems[i].producttotalprice+"'>"+
+                            "<div onclick='osub(this)'   id="+i+"><span class='sub'><img  src='/img/supermarket/1.png'/></span></div>"+
+                            "<div class='procutcountdiv'>"+
+                                "<span id='oproductcount"+i+"'>"+data.shopcar.shopcaritems[i].productcount+"</span>"+
+                            "</div>"+
+                            "<div onclick='oplus(this)' id="+i+"><span class='plus' ><img  src='/img/supermarket/2.png'/></span></div>"+
                             "</div>"
                 }
                 html=html+
                         "<div class='floor1'>"+
                             "<div class='shopcarinfo'>"+
-                                "<div class='shopcarpic'><img src='/img/supermarket/购物车.png'/></div>"+
+                                "<div class='shopcarpic'><img class='shopcarimg' src='/img/supermarket/购物车.png'/></div>"+
                                 "<div>"+
-                                    "<p  style='font-size: 2em;color: white'><span>￥</span><span id='smallcount'></span></p>"+
-                                    "<p  style='font-size: 0.7em;color: white'><span>当前购物车有</span><span id='count'></span><span >件商品</span></p>"+
+                                    "<p  style='font-size: 2em;color: white'><span>￥</span><span id='osmallcount'>"+data.shopcar.totalprice+"</span></p>"+
+                                    "<p  style='font-size: 0.7em;color: white'><span>当前购物车有</span><span id='ocount'>"+data.shopcar.shopcaritems.length+"</span><span >件商品</span></p>"+
                                 "</div>"+
-                                "<div  class='toshopcardiv'><span class='shopcar'>结算订单</span></div>"+
+                                "<div onclick='toorder()'  class='toshopcardiv'><span class='toshopcar'>结算订单</span></div>"+
                             "</div>"
                         "</div>"
                 $(".center").html(html)
@@ -296,6 +346,66 @@
 
         })
 
+    }
+
+    var totalprice;
+    var count;
+    //购物车页面减号
+    function osub(t){
+        count=$("#ocount").text();
+        totalprice=$("#osmallcount").text();
+        var i=$(t).attr("id")
+       var oproductcount= $("#oproductcount"+i).text();
+        var oproducttotalprice=$("#oproducttotalprice"+i).text();
+        var oldprice=$("#oldtotalprice"+i).val();
+        var productid=$("#oproductid"+i).val();
+        price=oproducttotalprice/oproductcount;
+            oproductcount=oproductcount-1
+            $("#oproductcount"+i).text(oproductcount);
+            $("#oproducttotalprice"+i).text((oproductcount*price).toFixed(1));
+            totalprice=totalprice-price;
+        $("#osmallcount").text(totalprice.toFixed(1));
+            if(oproductcount==0){
+                $("#oproductcount"+i).text(0);
+                $("#oproducttotalprice"+i).text(0);
+                $("#supplusdiv"+i).removeClass("supplusdiv");
+                $("#supplusdiv"+i).addClass("nn");
+                count=count-1;
+                $("#ocount").text(count);
+                $.ajax({
+                    url:"/market/deleteshopcaritems",
+                    data:{productid:productid,oldprice:oldprice},
+                    type:"post",
+                    success:function(data){
+                        return true;
+                    }
+                })
+        }
+
+    }
+
+
+    //购物车页面加号
+    function oplus(t){
+        totalprice=$("#osmallcount").text();
+        var i=$(t).attr("id")
+        var oproductcount= $("#oproductcount"+i).text();
+        var oproducttotalprice=$("#oproducttotalprice"+i).text();
+        price=oproducttotalprice/oproductcount;
+        if(oproductcount>=10){
+            alert("一次不能超过十个")
+            $("#oproductcount"+i).text(10);
+            $("#oproducttotalprice"+i).text(10*price);
+        }else{
+            $("#oproductcount"+i).text(parseInt(oproductcount)+1);
+            $("#oproducttotalprice"+i).text((parseInt(oproductcount)+1)*price);
+            totalprice=parseFloat(totalprice)+parseFloat(price);
+            $("#osmallcount").text(totalprice.toFixed(1));
+        }
+    }
+
+    function toorder(){
+        window.location.href="/market/toorder"
     }
     /*]]>*/
 </script>

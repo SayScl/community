@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8"/>
+    <title>订单页面</title>
+    <link rel="stylesheet" href="/css/market/order.css"/>
+</head>
+<body>
+<div class="main">
+    <div class="top">
+        <div class="topone" >
+            <span th:text="${session.user.community}">所在小区</span>
+        </div>
+
+        <div class="toptwo">迷家</div>
+
+        <div class="topthree"><img src="/img/firstpage/speak.png" style="opacity: .5;"></img></div>
+    </div>
+    <div class="center">
+        <div id="ctt" class="center" th:each="order,iterstatu:${shoporders}">
+            <div class="centerone">
+                <div class="centerpic"><img style="width: 100px" th:src="${order.path}"/></div>
+                <div class="centeroneone">
+                    <div class="centeronetwo">
+                        <div style="width: 90%"><span class="centerfont">订单编号</span><span class="centerfont" th:text="${order.orderid}"></span></div>
+                        <div class="statutopdiv"><span class="statutop" th:id="'statutop'+${iterstatu.index}"></span></div>
+                    </div>
+                    <div>
+                        <div class="centershoplist" th:each="shop:${order.shopcaritems}">
+                            <div style="margin-right: 30%"><span th:text="${shop.productname}"></span></div>
+                            <div style="margin-right: 30%"><spa>￥</spa><span th:text="${shop.producttotalprice}"></span></div>
+                            <div style="margin-left: 10%"><span th:text="${shop.productcount}"></span></div>
+                        </div>
+                    </div>
+                    <div style="align-self: flex-end"><span class="centerfont">共</span><span class="centerfont" th:text="${order.count}"></span>
+                        <span class="centerfont">件商品，实付￥</span>
+                        <span class="centerfont"  th:text="${order.totalprice}"></span>
+                    </div>
+                </div>
+            </div>
+            <div th:id="'centerplaydiv'+${iterstatu.index}" class="centerplaydiv">
+                <input  th:id="'playstatu'+${iterstatu.index}" type="hidden" th:value="${order.playstatu}"/>
+                <input  th:id="'sendstatu'+${iterstatu.index}" type="hidden" th:value="${order.sendstatu}"/>
+                <input  th:id="'evstatu'+${iterstatu.index}" type="hidden" th:value="${order.evaluatestatu}"/>
+                <input th:id="'toplay'+${iterstatu.index}" type="hidden" th:value="${order.id}" />
+                <span style="line-height: 30px;padding-left: 10px" th:id="'statu'+${iterstatu.index}">支付</span><span></span>
+            </div>
+        </div>
+    </div>
+
+
+    <div class="floor">
+        <div class="floorpic">
+            <img src="/img/firstpage/主页.png"/>
+        </div>
+        <div class="floorpic">
+            <img src="/img/firstpage/订单.png"/>
+        </div>
+        <div class="floorpic">
+            <img src="/img/firstpage/我的.png"/>
+        </div>
+        <div class="floorpic">
+            <img src="/img/firstpage/更多.png"/>
+        </div>
+    </div>
+
+
+
+</div>
+<script src="/js/jquery-3.1.1.min.js"></script>
+<script th:inline="javascript">
+    /*<![CDATA[*/
+    $(function(){
+        var ctt=$("[id='ctt']")
+        for(var i=0;i<ctt.length;i++){
+            if(parseInt($("#playstatu"+i).val())==0){
+                $("#statu"+i).text("支付")
+                $("#statutop"+i).text("未支付")
+                $("#statu"+i).css("cursor","pointer")
+                var id1=parseInt($("#toplay"+i).val());
+                debugger
+                $("#statu"+i).click(
+                    function toplay(){
+                        window.location.href="/market/toplay?id="+id1;
+                    }
+                )
+            }else{
+                var evaluatestatu= $("#evstatu"+i).val();
+                var id2=parseInt($("#toplay"+i).val());
+                switch (parseInt($("#sendstatu"+i).val())){
+                    case 2:
+                        $("#statutop"+i).text("已支付")
+                        $("#statu"+i).text("揽件");
+                        $("#centerplaydiv"+i).css("background-color","gray")
+                        break;
+                    case 1:
+                        $("#statutop"+i).text("已送达")
+                        if(evaluatestatu==1){
+                            $("#statu"+i).text("已评");
+                            $("#centerplaydiv"+i).css("background-color","gray")
+                        }else{
+                            $("#statu"+i).text("评价");
+                            $("#statu"+i).click(
+                                function todiscuss(){
+                                    window.location.href="/market/todiscuss?id="+id2;
+                                }
+                            )
+                        }
+
+                        break;
+                    case 0:
+                        $("#statutop"+i).text("配送中")
+                        $("#statu"+i).text("确认");
+                        $("#statu"+i).click(
+                            function todiscuss(){
+                                window.location.href="/market/todiscussone?id="+id2;
+                            }
+                        )
+
+                        break;
+                }
+            }
+        }
+
+    })
+    /*]]>*/
+</script>
+</body>
+</html>

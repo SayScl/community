@@ -12,6 +12,7 @@
             <result property="community" column="community"></result>
             <result property="address" column="address"></result>
             <result property="password" column="password"></result>
+            <result property="communityid" column="communityid"></result>
         </resultMap>
 
     <!--广告-->
@@ -43,6 +44,7 @@
         <result property="url" column="url"></result>
     </resultMap>
 
+
     <insert id="register">
         insert into user (
         phone_number,
@@ -51,7 +53,8 @@
         city,
         community,
         address,
-        password)
+        password,
+        communityid)
          VALUES (
             #{phoneNumber},
            #{nickname},
@@ -59,7 +62,8 @@
             #{city},
            #{community},
            #{address},
-           #{password}
+           #{password},
+           #{communityid}
         )
     </insert>
 
@@ -92,17 +96,18 @@
     <!--根据城市id查找小区-->
     <select id="getCommunityByCityId" parameterType="cityCommunity" resultMap="ccMap">
 
-        select  community from city where parent_id=#{parentId};
+        select id, community from city where parent_id=#{parentId};
     </select>
 
 
     <!--查小区-->
     <select id="getCommunity" resultMap="ccMap">
-        select  community ,parent_id from city where parent_id is not null
+        select id,  community ,parent_id from city where parent_id is not null
     </select>
 
     <!--查询所有功能-->
     <select id="getLimits" resultMap="limitMap">
         SELECT * from limitfunction
     </select>
+
 </mapper>

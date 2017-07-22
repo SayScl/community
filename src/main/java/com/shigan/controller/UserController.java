@@ -63,7 +63,7 @@ public class UserController {
     @ResponseBody
     public Map<String,String> register(Model model,@RequestParam String phoneNumber,@RequestParam String nickname,
                            @RequestParam String name,@RequestParam String city,@RequestParam String community,
-                           @RequestParam String address,@RequestParam String password){
+                           @RequestParam String address,@RequestParam String password,@RequestParam Integer id){
         Map<String,String > map=new HashMap<String,String>();
 
         User user=new User();
@@ -78,6 +78,7 @@ public class UserController {
         user.setCity(city);
         user.setCommunity(community);
         user.setPassword(password);
+        user.setCommunityid(id);
         int rows = userService.register(user);
         if(rows>0){
             map.put("success","success");

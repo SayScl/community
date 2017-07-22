@@ -1,0 +1,86 @@
+*{
+	margin: 0;
+	padding: 0;
+	font-family: "微软雅黑";
+}
+.main{
+	height: 100%;
+	display: flex;
+	display: -webkit-flex;
+	flex-flow: column wrap;
+}
+.top{
+	height: 20%;
+	width: 100%;
+	background-color: #F54866;
+	display: flex;
+	display: -webkit-flex;
+	flex-flow: row nowrap;
+	justify-content: flex-start;
+}
+.topone{
+	font-size: 3.5em;color: white;margin-left: 100px;align-self: center;
+}
+.toptwo{
+	font-size: 4em;color: white; margin: auto;
+}
+.topthree{
+	margin-right: 100px; align-self: center;
+}
+.center{
+	display:flex ;
+	display: -webkit-flex;
+	flex-flow: column nowrap;
+}
+.centerone{
+	display: flex;
+	display: -webkit-flex;
+	flex-flow: row nowrap;
+}
+.centeroneone{
+	display: flex;
+	display: -webkit-flex;
+	flex-flow: column nowrap;
+	width: 100%;
+}
+.statutop{
+	align-self: flex-end;color:white;font-size: 2em;line-height: 60px;padding-left: 2px;
+}
+.statutopdiv{
+	background-color: gray;height: 70px;width: 10%
+}
+.centeronetwo{
+	display: flex;
+	display: -webkit-flex;
+	flex-flow: row nowrap;
+	width: 100%;
+}
+.centerfont{
+	font-size: 2em;color: gray
+}
+.centershoplist{
+	font-size: 2em;color: gray;
+	display: flex;
+	display: -webkit-flex;
+	flex-flow: row nowrap;
+	justify-content: flex-start;
+}
+.centerpic{
+	width: 100px;
+	height: 126px;
+}
+.floor{
+	height: 20%;
+	width: 100%;
+	display: flex;
+	display: -webkit-flex;
+	flex-flow: row wrap;
+	justify-content: center;
+	align-items: center;
+}
+.floorpic{
+	margin-right: 100px;font-size: 2em;
+}
+.centerplaydiv{
+	align-self: flex-end;background-color: #F65162;color: white;font-size: 2.5em;height: 70px;width: 110px;
+}

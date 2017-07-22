@@ -90,6 +90,7 @@
             <span style="font-size: 1.2em;color: floralwhite;margin-top: 50px;">所在小区</span>
             <input  id="showcc"  type="text"  style="border: none;background-color: transparent;border-bottom:1px solid white;margin: 5px;font-size: 25px;color: darkgray;"  size="31%" value="点击选择"  readonly="readonly" ></input>*
             <span id="spancity"></span><span id="spancommunity"></span>
+            <input type="hidden" id="showccid"/>
         </div>
 
 
@@ -139,7 +140,7 @@
             <li class="level1" th:each="city,iterStat:${citys}" >
                 <a href="#none" onclick="getct(this)"><em class="ico ico1"></em><span   th:text="${city.cityName}"  th:id="${iterStat.index}"></span><i class="down"></i></a>
                 <ul class="level2" >
-                    <li onclick="getcc(this)" class="level3" id="cc" th:each="community:${communitys}" th:if="${city.cityid}==${community.parentId}"><a href="javascript:;"><span   th:text="${community.community}"></span></a></li>
+                    <li onclick="getcc(this)" class="level3" id="cc" th:each="community:${communitys}" th:if="${city.cityid}==${community.parentId}"><a href="javascript:;"><span th:text="${community.community}"></span><input type="hidden" th:value="${community.id}"/></a></li>
                 </ul>
             </li>
         </ul>
@@ -189,6 +190,8 @@
     function getcc(t){
         var cc=$(t).text()
         $("#showcc").val("城市"+ct+"小区"+cc)
+        var id=$(t).find("input").val();
+        $("#showccid").val(id);
         $("#community").val(cc);
         $(".main").show();
         $("#selecttt").css("display","none");
@@ -363,11 +366,12 @@ function test() {
       var community = $("#community").val();
       var  address = $("#address").val();
        var password= $("#password").val();
+       var id=$("#showccid").val();
 
         $.ajax({
             type:"post",
             url:"/user/register",
-            data:{phoneNumber:phoneNumber,nickname:nickname,name:name,city:city,community:community,address:address,password:password},
+            data:{phoneNumber:phoneNumber,nickname:nickname,name:name,city:city,community:community,address:address,password:password,id:id},
             success: function (data) {
                 if(data.success=="success"){
                     alert("注册成功")

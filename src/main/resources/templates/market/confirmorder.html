@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8"/>
+    <title>结算订单页</title>
+    <link href="/css/market/confirmorder.css" rel="stylesheet"/>
+</head>
+<body>
+<div class="main">
+    <div class="top">
+        <div class="topone"><span style="font-size: 5em; color: white;">&lt;</span></div>
+        <div class="toptwo"><span style="font-size: 5em; color: white; ">结算订单</span></div>
+    </div>
+    <div class="center">
+        <form id="form" >
+       <div style="background-color: white;margin-bottom: 40px">
+           <div>
+               <p class="centername" >姓名</p>
+               <p class="centernameone" id="name" th:text="${user.name}">姓名</p>
+           </div>
+           <div>
+               <p class="centername">地址</p>
+               <p class="centernameone" id="address" th:text="${user.address}">地址</p>
+           </div>
+           <div>
+               <p class="centername">商品列表</p>
+               <div class="centerproductlist" th:each="product:${shopcar.shopcaritems}">
+                   <div style="width: 40%"><span class="centerproductlistspan" th:text="${product.productname}">1</span></div>
+                   <div style="width: 20%"><span class="centerproductlistspan">￥</span><span class="centerproductlistspan" th:text="${product.producttotalprice}">2</span></div>
+                   <div style="width: 40%;display: flex;display: -webkit-flex;flex-flow: row nowrap;justify-content: flex-start">
+                       <div><img style="width: 70px"  src="/img/supermarket/1.png"/></div>
+                       <div><span class="centerproductlistspan" th:text="${product.productcount}">3</span></div>
+                       <div ><img style="width: 70px"  src="/img/supermarket/2.png"/></div>
+                   </div>
+               </div>
+           </div>
+       </div>
+        <div style="background-color: white;">
+            <div>
+                <p class="centername">优惠卷</p>
+                <p class="centernameone">暂无优惠卷</p>
+            </div>
+            <div >
+                <p class="centername">配送时间</p>
+                <div id="selecttime"><p onclick="selecttime()" id="time1" class="centernameone">配送时间</p></div>
+            </div>
+            <div style="margin-bottom: 90px">
+                <div class="centername">支付方式</div>
+                <div class="centernameone">
+                    <select id="play" style='font-size: 40px;height: 70px'>
+                        <option value="0">支付方式</option>
+                        <option value="1">微信支付</option>
+                        <option value="2">支付宝支付</option>
+                    </select>
+                </div>
+            </div>
+        </div>
+        <div class="floor">
+            <div class="flooonediv">
+                <span class="floorone">实付款￥</span>
+                <span class="floorone" id="totalprice" th:text="${shopcar.totalprice}"></span>
+            </div>
+            <div class="orderdiv"><span class="orderspan" onclick="playfor()">支付订单</span></div>
+        </div>
+            <input type="hidden" name="name" id="name1"/>
+            <input type="hidden" name="address" id="address1"/>
+            <input type="hidden" name="time" id="ttt1"/>
+            <input type="hidden" name="play" id="play1"/>
+            <input type="hidden" name="totalprice" id="totalpric1"/>
+        </form>
+        </div>
+</div>
+</body>
+<script src="/jquery-3.1.1.min.js"></script>
+<script th:inline="javascript">
+    /*<![CDATA[*/
+    function selecttime(){
+        var html="<span class='centernameone'>预约时间：</span><select id='time' style='font-size: 40px;height: 70px'><option  value='0'>及时送达</option>";
+        var date = new Date();
+        var seperator2 = ":";
+        var hours=date.getHours();
+        var minutes=date.getMinutes();
+        var time;
+        while(hours<=24){
+            var flagm=true;
+            var flagh=true;
+            minutes=parseInt(minutes)+30;
+            if(minutes>=60){
+                minutes=minutes-60;
+                hours=parseInt(hours)+1;
+                if(hours==24){
+                    break;
+                }
+            }
+            if(parseInt(hours)<10 && flagh){
+                flagh=false;
+                hours="0"+hours;
+            }
+            if(parseInt(minutes)<10 && flagm){
+                flagm=false;
+                minutes="0"+minutes;
+            }
+
+            time=hours+seperator2+minutes;
+            html=html+"<option>"+time+"</option>"
+        };
+        html=html+"</select>"
+        $("#selecttime").html(html)
+    }
+
+
+    function playfor(){
+        var name=$("#name").text();
+        var address=$("#address").text();
+        var time=$("#time :selected").text();
+        var play=$("#play :selected").text();
+        var totalprice=$("#totalprice").text();
+        $("#name1").val(name);
+        $("#address1").val(address);
+        $("#totalpric1").val(totalprice);
+        if(time==null ||time==""){
+            alert("请选择配送时间");
+            return false;
+        }else{
+            $("#ttt1").val(time);
+        }
+        debugger
+        if(play=="支付方式" || play==null ||play==""){
+            alert("请选择支付方式");
+            return false;
+        }else{
+            $("#play1").val(play);
+        }
+        $("#form").attr("action","/market/toplay");
+        $("#form").attr("method","post").submit();
+    }
+
+    /*]]>*/
+</script>
+</html>

@@ -1,6 +1,10 @@
 *{
 	margin: 0;
-	padding: 0;	
+	padding: 0;
+	font-family: 微软雅黑;
+}
+html{
+	height: 100%;
 }
 .main{
 	display: flex;
@@ -31,6 +35,30 @@
 .center{
 	height: 40%;
 }
+.shopsdiv{
+	margin-right: 2px;
+}
+.shopsimg{
+	height: 100px;width: 90px;
+}
+.shopsdivone{
+	width:73px;display: flex;display: -webkit-flex;flex-flow: column nowrap;
+}
+.shopdivspanone{
+	font-size: 0.7em;
+}
+.shopsdivspantwo{
+	font-size: 0.3em;color: darkgrey
+}
+.shopsdivtwo{
+	margin-top: 10px
+}
+.shopsdivtwospan{
+	font-size: 1em;color: red
+}
+.shopsdivthreespan{
+	font-size: 0.1em;color: darkgrey;
+}
 .cone{
 	display: flex;
 	display: -webkit-flex;
@@ -38,6 +66,7 @@
 	justify-content: center;
 }
 .floor{
+	height: 30%;
 	display: flex;
 	display:-webkit-flex;
 	flex-flow: row nowrap;
@@ -56,7 +85,10 @@
 	height:20px;width:20px;border-radius: 10px;
 }
 .shopcarpic{
-	margin-right: 20px;"><img style="width: 100px;
+	margin-right: 20px;
+}
+.shopcarimg{
+	width: 100px;
 }
 .shopcarinfo{
 	display: flex;display: -webkit-flex;flex-flow: row nowrap;margin: auto;
@@ -75,4 +107,11 @@ padding-left: 10px;line-height: 75px;text-align:center;font-size: 1.5em;color: w
 	background-color: darkgray;
 	opacity: 0.5;
 	z-index: -1;
+}
+
+.procutcountdiv{
+	height: 20px;width: 20px;margin-left: 14px;margin-top: 6px;
+}
+.supplusdiv{
+	display: flex;display: -webkit-flex;flex-flow:row nowrap;align-self: flex-start;padding-bottom: 20px;margin-top: 50px
 }

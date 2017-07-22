@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8"/>
+    <title>支付页面</title>
+</head>
+<body>
+    支付页面
+    <p>应付：<input type="text" th:value="${order.totalprice}"/></p>
+    <input id="shoplist" type="hidden" th:value="${order.shoplist}"/>
+    <input id="orderid" type="hidden" th:value="${order.orderid}"/>
+    <input id="ordernum" type="hidden" th:value="${ordernum}"/>
+    <p><input onclick="play()" type="button" value="支付"/></p>
+    <p><input onclick="javascript:window.location.href='/market/tosupermarket'" type="button" value="返回"/></p>
+
+</body>
+<script src="/js/jquery-3.1.1.min.js"></script>
+<script th:inline="javascript">
+    /*<![CDATA[*/
+    function play(){
+        var shoplist=$("#shoplist").val();
+        var orderid=$("#orderid").val();
+        $.ajax({
+            url:"/market/play",
+            data:{shoplist:shoplist,orderid:orderid},
+            type:"post",
+            success:function(data){
+                if(data=="success"){
+                    alert("支付成功")
+                }
+            }
+        })
+    }
+
+    /*]]>*/
+</script>
+</html>
