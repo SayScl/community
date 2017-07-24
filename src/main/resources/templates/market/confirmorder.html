@@ -24,13 +24,13 @@
            </div>
            <div>
                <p class="centername">商品列表</p>
-               <div class="centerproductlist" th:each="product:${shopcar.shopcaritems}">
+               <div class="centerproductlist" th:each="product,iterstatu:${shopcar.shopcaritems}">
                    <div style="width: 40%"><span class="centerproductlistspan" th:text="${product.productname}">1</span></div>
-                   <div style="width: 20%"><span class="centerproductlistspan">￥</span><span class="centerproductlistspan" th:text="${product.producttotalprice}">2</span></div>
+                   <div style="width: 20%"><span class="centerproductlistspan">￥</span><span th:id="'pptotal'+${iterstatu.count}"  class="centerproductlistspan" th:text="${product.producttotalprice}">2</span></div>
                    <div style="width: 40%;display: flex;display: -webkit-flex;flex-flow: row nowrap;justify-content: flex-start">
-                       <div><img style="width: 70px"  src="/img/supermarket/1.png"/></div>
-                       <div><span class="centerproductlistspan" th:text="${product.productcount}">3</span></div>
-                       <div ><img style="width: 70px"  src="/img/supermarket/2.png"/></div>
+                       <div th:id="${iterstatu.count}" onclick="jian(this)"><img style="width: 70px"  src="/img/supermarket/1.png"/></div>
+                       <div ><span class="centerproductlistspan" th:id="'ppcount'+${iterstatu.count}" th:text="${product.productcount}">3</span></div>
+                       <div th:id="${iterstatu.count}" onclick="jia(this)" ><img style="width: 70px"  src="/img/supermarket/2.png"/></div>
                    </div>
                </div>
            </div>
@@ -42,11 +42,11 @@
             </div>
             <div >
                 <p class="centername">配送时间</p>
-                <div id="selecttime"><p onclick="selecttime()" id="time1" class="centernameone">配送时间</p></div>
+                <div style="width: 500px;margin: auto" id="selecttime"><p onclick="selecttime()" id="time1" class="centernameone">配送时间</p></div>
             </div>
             <div style="margin-bottom: 90px">
                 <div class="centername">支付方式</div>
-                <div class="centernameone">
+                <div style="width: 500px;margin: auto" class="centernameone">
                     <select id="play" style='font-size: 40px;height: 70px'>
                         <option value="0">支付方式</option>
                         <option value="1">微信支付</option>
@@ -134,6 +134,9 @@
         $("#form").attr("action","/market/toplay");
         $("#form").attr("method","post").submit();
     }
+
+
+
 
     /*]]>*/
 </script>

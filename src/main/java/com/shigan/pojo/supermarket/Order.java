@@ -25,6 +25,15 @@ public class Order {
     private String path;
     private String phonenumber;
     private Integer communityid;
+    private Integer reback;
+
+    public Integer getReback() {
+        return reback;
+    }
+
+    public void setReback(Integer reback) {
+        this.reback = reback;
+    }
 
     public String getPhonenumber() {
         return phonenumber;

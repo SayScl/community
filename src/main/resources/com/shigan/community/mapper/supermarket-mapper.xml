@@ -71,6 +71,7 @@
         <result property="path" column="path"></result>
         <result property="phonenumber" column="phonenumber"></result>
         <result property="communityid" column="communityid"></result>
+        <result property="reback" column="reback"></result>
     </resultMap>
 
 
@@ -220,7 +221,7 @@
 
     <!--插入订单表-->
     <insert id="addorder" parameterType="order">
-        insert into shoporder values(null,#{orderid},#{userid},#{name},#{address},#{shoplist},#{totalprice},#{time},#{play},#{playstatu},#{evaluatestatu},#{count},#{createtime},#{sendstatu},#{path},#{phonenumber},#{communityid})
+        insert into shoporder values(null,#{orderid},#{userid},#{name},#{address},#{shoplist},#{totalprice},#{time},#{play},#{playstatu},#{evaluatestatu},#{count},#{createtime},#{sendstatu},#{path},#{phonenumber},#{communityid},#{reback})
     </insert>
 
     <!--修改支付状态-->
@@ -249,6 +250,7 @@
         <set>
             <if test="sendstatu!=null and sendstatu!=''">sendstatu=#{sendstatu},</if>
             <if test="evaluatestatu!=null and evaluatestatu!=''">evaluatestatu=#{evaluatestatu},</if>
+            <if test="reback!=null and reback!=''">reback=#{reback}</if>
         </set>
         where id=#{id}
     </update>

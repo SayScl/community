@@ -43,7 +43,9 @@
                 <input  th:id="'sendstatu'+${iterstatu.index}" type="hidden" th:value="${order.sendstatu}"/>
                 <input  th:id="'evstatu'+${iterstatu.index}" type="hidden" th:value="${order.evaluatestatu}"/>
                 <input th:id="'toplay'+${iterstatu.index}" type="hidden" th:value="${order.id}" />
-                <span style="line-height: 30px;padding-left: 10px" th:id="'statu'+${iterstatu.index}">支付</span><span></span>
+                <input th:id="'rebackstatu'+${iterstatu.index}" type="hidden" th:value="${order.reback}" />
+                <div><span style="background-color:#F65162;line-height: 30px;" th:id="'reback'+${iterstatu.index}"></span></div>
+                <div><span style="line-height: 30px;padding-left: 10px" th:id="'statu'+${iterstatu.index}">支付</span></div>
             </div>
         </div>
     </div>
@@ -51,7 +53,7 @@
 
     <div class="floor">
         <div class="floorpic">
-            <img src="/img/firstpage/主页.png"/>
+            <a th:href="@{/}"><img src="/img/firstpage/主页.png"/></a>
         </div>
         <div class="floorpic">
             <img src="/img/firstpage/订单.png"/>
@@ -78,7 +80,6 @@
                 $("#statutop"+i).text("未支付")
                 $("#statu"+i).css("cursor","pointer")
                 var id1=parseInt($("#toplay"+i).val());
-                debugger
                 $("#statu"+i).click(
                     function toplay(){
                         window.location.href="/market/toplay?id="+id1;
@@ -87,11 +88,35 @@
             }else{
                 var evaluatestatu= $("#evstatu"+i).val();
                 var id2=parseInt($("#toplay"+i).val());
+                var rebackstatu=$("#rebackstatu"+i).val();
                 switch (parseInt($("#sendstatu"+i).val())){
                     case 2:
+                        debugger
                         $("#statutop"+i).text("已支付")
-                        $("#statu"+i).text("揽件");
-                        $("#centerplaydiv"+i).css("background-color","gray")
+                        if(rebackstatu==2){
+                            $("#statu"+i).text("已退");
+                        }else if(rebackstatu==1){
+                            $("#statu"+i).text("退中");
+                        }else if(rebackstatu==0){
+                            debugger
+                            $("#centerplaydiv"+i).css("width","210px");
+                            $("#statu"+i).text("揽件");
+                            $("#reback"+i).text("退款");
+                            var id3=parseInt($("#toplay"+i).val());
+                            $("#reback"+i).click(function () {
+                                $.ajax({
+                                    url:"/market/reback",
+                                    data:{id:id3},
+                                    type:"post",
+                                    success:function(data){
+                                        if(data=="success"){
+                                            alert('申请成功请稍等')
+                                        }
+                                    }
+                                })
+                            })
+                            $("#centerplaydiv"+i).css("background-color","gray")
+                        }
                         break;
                     case 1:
                         $("#statutop"+i).text("已送达")

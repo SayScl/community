@@ -43,7 +43,7 @@
             <div style="margin-right: 10px;"><img src="/img/supermarket/search.png"/></div>
         </div>
         <div class="two">
-            <div><img src="/img/supermarket/LOG.png"/></div>
+            <div><a th:href="@{/}"><img src="/img/supermarket/LOG.png"/></a></div>
             <div style="margin-left: 15px;">
                 <div style="margin-top: 30px;"><span style="font-size: 2em;color: white;" th:text="${session.user.community}">香榭水岸</span></div>
                 <div><span style="font-size: 2em;color: white;">社区超市</span></div>
@@ -230,7 +230,6 @@
         var id=$(t).attr("id");
         snumber=$("#shownum"+id).text();
         var price=parseFloat($("#price"+id).val());
-        debugger
         var productid=$("#productid"+id).val();
         var storewarning=$("#storewarning"+id).val();
         var store=$("#store"+id).val();
@@ -308,6 +307,11 @@
 
     //点击购物车按钮获得商品数据
     function shopcar(){
+        var cccc=$("#count").text();
+        if(parseInt(cccc)==0){
+            alert("购物车为空，请选择商品")
+            return false;
+        }
         var jj=JSON.stringify(getproductids);
         $.ajax({
             url:"/market/shopcaritems",
@@ -320,6 +324,7 @@
                     html= html+ "<div class='supplusdiv'  id='supplusdiv"+i+"'>"+
                             "<div><span>"+data.shopcar.shopcaritems[i].productname+"</span></div>"+
                             "<input id='oproductid"+i+"' type='hidden' value='"+data.shopcar.shopcaritems[i].productid+"'>"+
+                            "<input id='id"+i+"' type='hidden' value='"+data.shopcar.shopcaritems[i].id+"'>"+
                             "<div><span id='oproducttotalprice"+i+"'>"+data.shopcar.shopcaritems[i].producttotalprice+"</span></div>"+
                             "<input id='oldtotalprice"+i+"' type='hidden' value='"+data.shopcar.shopcaritems[i].producttotalprice+"'>"+
                             "<div onclick='osub(this)'   id="+i+"><span class='sub'><img  src='/img/supermarket/1.png'/></span></div>"+
@@ -359,11 +364,22 @@
         var oproducttotalprice=$("#oproducttotalprice"+i).text();
         var oldprice=$("#oldtotalprice"+i).val();
         var productid=$("#oproductid"+i).val();
+        var id=$("#id"+i).val();
         price=oproducttotalprice/oproductcount;
             oproductcount=oproductcount-1
             $("#oproductcount"+i).text(oproductcount);
             $("#oproducttotalprice"+i).text((oproductcount*price).toFixed(1));
             totalprice=totalprice-price;
+            $.ajax({
+                url:"/market/uproducttotal",
+                data:{productid:productid,totalprice:totalprice,productcount:oproductcount},
+                type:"post",
+                success:function(data){
+                    if(data=="success"){
+                        alert("success")
+                    }
+                }
+            })
         $("#osmallcount").text(totalprice.toFixed(1));
             if(oproductcount==0){
                 $("#oproductcount"+i).text(0);
@@ -374,7 +390,7 @@
                 $("#ocount").text(count);
                 $.ajax({
                     url:"/market/deleteshopcaritems",
-                    data:{productid:productid,oldprice:oldprice},
+                    data:{productid:productid,oldprice:oldprice,id:id},
                     type:"post",
                     success:function(data){
                         return true;
@@ -389,6 +405,7 @@
     function oplus(t){
         totalprice=$("#osmallcount").text();
         var i=$(t).attr("id")
+        var productid=$("#oproductid"+i).val();
         var oproductcount= $("#oproductcount"+i).text();
         var oproducttotalprice=$("#oproducttotalprice"+i).text();
         price=oproducttotalprice/oproductcount;
@@ -396,16 +413,48 @@
             alert("一次不能超过十个")
             $("#oproductcount"+i).text(10);
             $("#oproducttotalprice"+i).text(10*price);
+            totalprice=10*price;
+            oproductcount=10;
+            $.ajax({
+                url:"/market/uproducttotal",
+                data:{productid:productid,totalprice:totalprice,productcount:oproductcount},
+                type:"post",
+                success:function(data){
+                    if(data=="success"){
+                        alert("success")
+                    }
+                }
+            })
         }else{
-            $("#oproductcount"+i).text(parseInt(oproductcount)+1);
-            $("#oproducttotalprice"+i).text((parseInt(oproductcount)+1)*price);
+            oproductcount=parseInt(oproductcount)+1;
+            $("#oproductcount"+i).text(oproductcount);
+            $("#oproducttotalprice"+i).text(oproductcount*price);
             totalprice=parseFloat(totalprice)+parseFloat(price);
             $("#osmallcount").text(totalprice.toFixed(1));
+            totalprice=totalprice.toFixed(1);
+            $.ajax({
+                url:"/market/uproducttotal",
+                data:{productid:productid,totalprice:totalprice,productcount:oproductcount},
+                type:"post",
+                success:function(data){
+                    if(data=="success"){
+                        alert("success")
+                    }
+                }
+            })
         }
     }
 
     function toorder(){
-        window.location.href="/market/toorder"
+        debugger
+        var smallcount=$("#ocount").text();
+        if(parseInt(smallcount)==0){
+            alert("购物车为空，请选择商品");
+            return false;
+        }else{
+            window.location.href="/market/toorder"
+        }
+
     }
     /*]]>*/
 </script>

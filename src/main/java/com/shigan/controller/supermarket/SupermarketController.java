@@ -228,6 +228,7 @@ public class SupermarketController {
     public String deleteshopcaritems(HttpServletRequest request){
         String productid = request.getParameter("productid");
         String oldprice = request.getParameter("oldprice");
+        String id = request.getParameter("id");
         Shopcar shopcar=new Shopcar();
         HttpSession session = request.getSession();
         User user =(User) session.getAttribute("user");
@@ -247,12 +248,23 @@ public class SupermarketController {
         StringBuffer newitems=new StringBuffer();
         //查看是否有要删除的productid
         for(int jj=0;jj<list.size();jj++){
-            if(list.get(jj).equals(productid)){
+            if(list.get(jj).equals(id)){
                 list.remove(list.get(jj));
             }
         }
         for(int jjj=0;jjj<list.size();jjj++){
-            newitems.append(list.get(jjj));
+            if(jjj==0){
+                newitems.append(list.get(jjj));
+            }else{
+                if(jjj==list.size()-1){
+                    newitems.append(list.get(jjj));
+                }else{
+                    newitems.append(",");
+                    newitems.append(list.get(jjj));
+                }
+
+
+            }
         }
         shopcar.setTotalprice(newTotalprice);
         shopcar.setItemsid(newitems.toString());
@@ -264,6 +276,25 @@ public class SupermarketController {
             shopcarService.deleteshopcarbyuserid(user.getId());
         }
         return "success";
+    }
+
+    //修改购物项单项总价
+    @RequestMapping("uproducttotal")
+    @ResponseBody
+    public String uproducttotal(HttpServletRequest request){
+        String productid = request.getParameter("productid");
+        String totalprice = request.getParameter("totalprice");
+        String productcount = request.getParameter("productcount");
+        Shopcaritems si=new Shopcaritems();
+        si.setProductid(Integer.parseInt(productid));
+        si.setProducttotalprice(Double.parseDouble(totalprice));
+        si.setProductcount(Integer.parseInt(productcount));
+        int i = shopcarService.updatebyproductid(si);
+        if(i>0){
+            return "success";
+        }else{
+            return "faild";
+        }
     }
 
     //跳转到结算页面
@@ -283,8 +314,13 @@ public class SupermarketController {
             list.add(split[i]);
         }
         //获得该用户购物车中的购物项
+        double tp=0;
         List<Shopcaritems> shopcaritems = shopcarService.getshopcaritemsbyid(list);
+        for(Shopcaritems spi:shopcaritems){
+            tp=tp+spi.getProducttotalprice();
+        }
         sp.setShopcaritems(shopcaritems);
+        sp.setTotalprice(tp);
         model.addAttribute("user",user);
         model.addAttribute("shopcar",sp);
         return "/market/confirmorder";
@@ -313,6 +349,7 @@ public class SupermarketController {
             order.setTotalprice(Double.parseDouble(totalprice));
             order.setPlay(play);
             order.setPlaystatu(0);
+            order.setReback(0);
             Date date=new Date();
             StringBuffer orderid=new StringBuffer();
             SimpleDateFormat format=new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
@@ -485,5 +522,21 @@ public class SupermarketController {
     public String token(){
         String token = this.qiniuUploadService.getUploadToken();
         return token;
+    }
+
+    //申请退款
+    @RequestMapping("reback")
+    @ResponseBody
+    public String reback(HttpServletRequest request){
+        String id = request.getParameter("id");
+        Order order=new Order();
+        order.setReback(1);
+        order.setId(Integer.parseInt(id));
+        int i = orderService.updateotherstatubyid(order);
+        if(i>0){
+            return "success";
+        }else{
+            return "faild";
+        }
     }
 }
