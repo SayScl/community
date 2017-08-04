@@ -24,9 +24,9 @@
                 <div class="cdiv1-2" th:if="${wybx.statu}==0" th:text="已报修"></div>
                 <div class="cdiv1-2" th:if="${wybx.statu}==1" th:text="处理中"></div>
                 <div class="cdiv1-2" th:if="${wybx.statu}==2" th:text="处理完"></div>
-                <div class="cdiv1-2" th:if="${wybx.statu}==3" th:text="处理完"></div>
+                <div class="cdiv1-2" th:if="${wybx.statu}==3" th:text="已确认"></div>
             </div>
-            <div class="cdiv2" th:if="${wybx.statu}==2" ><span th:id="${wybx.id}" onclick="confirm(this)" th:text="确认"></span></div>
+            <div class="cdiv2" th:if="${wybx.statu}==2" ><button style="background-color: #F64B64" th:id="${wybx.id}" onclick="confirm(this)" th:text="确认"></button></div>
         </div>
     </div>
 </div>
