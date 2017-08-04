@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title></title>
+    <link rel="stylesheet" href="/css/pm/gginfo.css"/>
+    <link href="/css/pm/bootstrap.min.css" rel="stylesheet"/>
+    <link rel="stylesheet" type="text/css" href="/css/pm/zzsc-demo.css"/>
+    <link rel="stylesheet" href="/css/pm/baguetteBox.min.css"/>
+    <link rel="stylesheet" href="/css/pm/gallery-clean.css"/>
+</head>
+<body>
+<div class="main">
+    <div class="top">
+        <div class="one">
+            <div class="onediv"><span style="font-size: 3em;color: white;">&lt;</span></div>
+            <div class="div2"><span style="font-size: 2em;color: white;">小区投票</span></div>
+        </div>
+    </div>
+
+    <div id="center"  class="center">
+        <div class="cdiv1"><span class="scdiv1" th:text="${xqtp.title}"></span></div>
+        <div class="cdiv2" ><span class="scdiv2" th:text="${xqtp.createtime}"></span></div>
+        <div class="cdiv3" ><span class="scdiv3" th:text="${xqtp.content}"></span></div>
+        <p><span th:text="${xqtp.type==1?'单选':'多选'}"></span><span th:text="最多选择"></span><span th:text="${xqtp.cnum}"></span><span >项</span></p>
+        <div>
+            <p th:each="se:${xqtp.lse}">
+                <img style="width: 50px" th:src="${se.path}"/>
+                <span th:text="${se.content}"></span>
+                <span><progress th:value="${se.progress}" max="100"></progress></span>
+                <span th:text="${se.progress}"></span> <span>票</span>
+                <span th:text="${se.progress}"></span> <span>%</span>
+            </p>
+        </div>
+        <div style="background-color: gray"><div style="margin: auto">投票</div></div>
+
+    </div>
+</div>
+
+</body>
+<script src="/jquery-3.1.1.min.js"></script>
+<script type="text/javascript" src="/js/pm/baguetteBox.min.js"></script>
+<script th:inline="javascript">
+    /*<![CDATA[*/
+
+    $(function(){
+        var path=$("#path").val();
+        var paths=new Array();
+        var html=""
+        paths=path.split(",");
+        for(var i=0;i<paths.length;i++){
+            html=html+
+                    "<a class='lightbox' href='"+paths[i]+"'>"+
+                    "<img style='width: 400px;height: 400px' src='"+paths[i]+"' alt='1'>"+
+                    "</a>"
+        }
+        $(".row").append(html);
+        baguetteBox.run('.tz-gallery');
+    })
+    /*]]>*/
+</script>
+</html>

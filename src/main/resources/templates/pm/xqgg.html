@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title></title>
+    <link rel="stylesheet" href="/css/pm/wybx.css"/>
+</head>
+<body>
+<div class="main">
+    <div class="top">
+        <div class="one">
+            <div class="onediv"><span style="font-size: 3em;color: white;">&lt;</span></div>
+            <div class="div2"><span style="font-size: 2em;color: white;">小区公告</span></div>
+        </div>
+    </div>
+
+    <div  class="center">
+        <div  class="centerone" th:each="xqgg:${xqgg}">
+            <a style="text-decoration: none;color: black" th:href="@{/pm/togginfo(id=${xqgg.id})}">
+            <div class="cdiv" th:text="${xqgg.createtime}" >公告时间</div>
+            <div class="cdiv1">
+                <div class="cdiv1-1" th:text="${xqgg.title}"></div>
+            </div>
+            </a>
+        </div>
+    </div>
+</div>
+
+</body>
+<script src="/jquery-3.1.1.min.js"></script>
+<script th:inline="javascript">
+    /*<![CDATA[*/
+    /*]]>*/
+</script>
+</html>

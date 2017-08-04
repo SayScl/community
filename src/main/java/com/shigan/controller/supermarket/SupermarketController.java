@@ -2,6 +2,7 @@ package com.shigan.controller.supermarket;
 
 import com.shigan.pojo.Limit;
 import com.shigan.pojo.User;
+import com.shigan.pojo.common.Common;
 import com.shigan.pojo.supermarket.*;
 import com.shigan.service.QiniuUploadService;
 import com.shigan.service.UserService;
@@ -256,14 +257,8 @@ public class SupermarketController {
             if(jjj==0){
                 newitems.append(list.get(jjj));
             }else{
-                if(jjj==list.size()-1){
-                    newitems.append(list.get(jjj));
-                }else{
                     newitems.append(",");
                     newitems.append(list.get(jjj));
-                }
-
-
             }
         }
         shopcar.setTotalprice(newTotalprice);
@@ -450,7 +445,7 @@ public class SupermarketController {
             Shopcaritems sp=new Shopcaritems();
             String[] s2 = s1[j].split(",");
             product.setProductname(s2[0]);
-            double price=Double.parseDouble(s2[1])/Double.parseDouble(s2[2]);
+            Double price = Common.div(Double.parseDouble(s2[1]), Double.parseDouble(s2[2]), 1);
             System.out.print(price);
             product.setPrice(price);
             Product product1 = productService.getproductbynameprice(product);

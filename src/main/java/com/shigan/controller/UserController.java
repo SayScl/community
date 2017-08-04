@@ -1,5 +1,6 @@
 package com.shigan.controller;
 
+import com.shigan.common.Common;
 import com.shigan.pojo.Ad;
 import com.shigan.pojo.CityCommunity;
 import com.shigan.pojo.User;
@@ -106,6 +107,7 @@ public class UserController {
         if(u1!=null){
             HttpSession session = request.getSession();
             session.setAttribute("user",u1);
+            Common.user=u1;
             return "success";
         }else{
             return "faild";

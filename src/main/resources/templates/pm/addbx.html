@@ -1,0 +1,426 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+	<head>
+		<meta charset="UTF-8"/>
+		<title></title>
+	</head>
+	<link href="/css/pm/addbx.css" rel="stylesheet"/>
+	<body>
+		<div class="main">
+			<div class="top">
+        		<div class="topone"><span class="topfont">&lt;</span></div>
+        		<div class="toptwo"><span class="topfont">物业报修</span></div>
+    		</div>
+    		<div class="center">
+                <input type="hidden" id="orderid" th:value="${id}"/>
+    			<div>
+					<div class="centerone">
+						<div><img class="cpic" src="/img/pm/物业报修.png"/></div>
+						<div class="cfont">新增报修</div>
+					</div>
+				</div>
+    			<div class="cdiv2">
+					<textarea id="content" rows="15" cols="60" placeholder="请写下你的报修内容" maxlength="30"></textarea>
+				</div>
+    			<div class="centertwo">
+					<div style="margin-left: 20px">评论图片</div>
+					<div class="ctdiv1">
+						<div id="ub1" style="display: block;">
+							<img  style="width: 80px;height: 80px" id="uploadButton1" src="/img/supermarket/上传图.png"/>
+							<input type="hidden" id="hresult1"/>
+						</div>
+						<div id="ub2" style="display: none;">
+							<img  class="cdivpic" id="uploadButton2" src="/img/supermarket/上传图.png"/>
+							<input type="hidden" id="hresult2"/>
+						</div>
+						<div id="ub3" style="display: none;">
+							<img  class="cdivpic" id="uploadButton3" src="/img/supermarket/上传图.png"/>
+							<input type="hidden" id="hresult3"/>
+						</div>
+						<div id="ub4" style="display: none;">
+							<img  class="cdivpic" id="uploadButton4" src="/img/supermarket/上传图.png"/>
+							<input type="hidden" id="hresult4"/>
+						</div>
+						<div id="ub5" style="display: none;">
+							<img  class="cdivpic" id="uploadButton5" src="/img/supermarket/上传图.png"/>
+							<input type="hidden" id="hresult5"/>
+						</div>
+					</div>
+				</div>
+				<div style="margin-top: 20px">
+					<div class="submit" id="submit">
+						<div class="submitone" onclick="submitwybx()">提交</div>
+					</div>
+				</div>
+    		</div>
+		</div>
+	</body>
+	<script src="/js/qiniu.js"></script>
+	<script src="/js/jquery-3.1.1.min.js"></script>
+	<script th:inline="javascript">
+		/*<![CDATA[*/
+		$(function(){
+            //七年上传文件
+
+            var _token = null;
+
+            $.ajax({
+                url: '/market/token',
+                type: 'get',
+                success: function (data) {
+                    _token = data;
+                    console.debug('A: ' + _token);
+                }
+            });
+
+
+            // 上传空间URL
+            var uploadSpace = 'http://osatg44gp.bkt.clouddn.com';
+
+            qiniu.config({
+                url: uploadSpace,
+                uploadUrl: 'up-z2.qiniu.com' // 七牛统一的一个上传域名，固定
+            });
+
+            //上传图1
+                qiniu.bind($('#uploadButton1'), {
+                filter: 'image'
+            }).on('file', function(file) {
+					check(1);
+                console.debug('---');
+
+                var imagesBucket = qiniu.bucket('community', {
+                    putToken: _token
+                });
+
+                console.debug('B: ' + _token);
+
+                // 上传文件名
+//                var fileName = 'abc_' + new Date().getMilliseconds() + '.jpg';
+
+//                var fileName
+
+                console.debug(file);
+
+                var fileName = file.name;
+
+                fileName = fileName+new Date().getMilliseconds();
+
+//                    return;
+
+                console.debug('文件名：'  + fileName);
+
+
+                // Upload
+                imagesBucket.putFile(fileName, file)
+                    .then(
+                        function(reply) {
+                            // 上传成功
+//                            console.dir(reply);
+                            console.debug(reply.hash);
+                            console.debug(reply.key);
+
+                            var se = new Date().getMilliseconds();
+//                          $('#result').html(uploadSpace + '/' + fileName + '?v=' + se);
+                            $('#uploadButton1').attr("src",uploadSpace + '/' + fileName + '?v=' + se);
+                            $('#result1').text(uploadSpace + '/' + fileName + '?v=' + se);
+                            $('#hresult1').val(uploadSpace + '/' + fileName + '?v=' + se);
+                        },
+                        function(err) {
+                            // 上传失败
+                            console.error(err);
+                        }
+                    );
+            });
+
+
+
+
+
+            //上传图2
+            qiniu.bind($('#uploadButton2'), {
+                filter: 'image'
+            }).on('file', function(file) {
+
+                check(2);
+                console.debug('---');
+
+                var imagesBucket = qiniu.bucket('community', {
+                    putToken: _token
+                });
+
+                console.debug('B: ' + _token);
+
+                // 上传文件名
+//                var fileName = 'abc_' + new Date().getMilliseconds() + '.jpg';
+
+//                var fileName
+
+                console.debug(file);
+
+                var fileName = file.name;
+
+                fileName = fileName+new Date().getMilliseconds();
+
+//                    return;
+
+                console.debug('文件名：'  + fileName);
+
+
+                // Upload
+                imagesBucket.putFile(fileName, file)
+                    .then(
+                        function(reply) {
+                            // 上传成功
+//                            console.dir(reply);
+                            console.debug(reply.hash);
+                            console.debug(reply.key);
+
+                            var se = new Date().getMilliseconds();
+//                          $('#result').html(uploadSpace + '/' + fileName + '?v=' + se);
+                            $('#uploadButton2').attr("src",uploadSpace + '/' + fileName + '?v=' + se);
+                            $('#result1').text(uploadSpace + '/' + fileName + '?v=' + se);
+                            $('#hresult2').val(uploadSpace + '/' + fileName + '?v=' + se);
+                        },
+                        function(err) {
+                            // 上传失败
+                            console.error(err);
+                        }
+                    );
+            });
+
+
+            //上传图3
+            qiniu.bind($('#uploadButton3'), {
+                filter: 'image'
+            }).on('file', function(file) {
+
+                check(3);
+                console.debug('---');
+
+                var imagesBucket = qiniu.bucket('community', {
+                    putToken: _token
+                });
+
+                console.debug('B: ' + _token);
+
+                // 上传文件名
+//                var fileName = 'abc_' + new Date().getMilliseconds() + '.jpg';
+
+//                var fileName
+
+                console.debug(file);
+
+                var fileName = file.name;
+
+                fileName = fileName+new Date().getMilliseconds();
+
+//                    return;
+
+                console.debug('文件名：'  + fileName);
+
+
+                // Upload
+                imagesBucket.putFile(fileName, file)
+                    .then(
+                        function(reply) {
+                            // 上传成功
+//                            console.dir(reply);
+                            console.debug(reply.hash);
+                            console.debug(reply.key);
+
+                            var se = new Date().getMilliseconds();
+//                          $('#result').html(uploadSpace + '/' + fileName + '?v=' + se);
+                            $('#uploadButton3').attr("src",uploadSpace + '/' + fileName + '?v=' + se);
+                            $('#hresult3').val(uploadSpace + '/' + fileName + '?v=' + se);
+                        },
+                        function(err) {
+                            // 上传失败
+                            console.error(err);
+                        }
+                    );
+            });
+
+
+
+            //上传图4
+            qiniu.bind($('#uploadButton4'), {
+                filter: 'image'
+            }).on('file', function(file) {
+
+                check(4);
+                console.debug('---');
+
+                var imagesBucket = qiniu.bucket('community', {
+                    putToken: _token
+                });
+
+                console.debug('B: ' + _token);
+
+                // 上传文件名
+//                var fileName = 'abc_' + new Date().getMilliseconds() + '.jpg';
+
+//                var fileName
+
+                console.debug(file);
+
+                var fileName = file.name;
+
+                fileName = fileName+new Date().getMilliseconds();
+
+//                    return;
+
+                console.debug('文件名：'  + fileName);
+
+
+                // Upload
+                imagesBucket.putFile(fileName, file)
+                    .then(
+                        function(reply) {
+                            // 上传成功
+//                            console.dir(reply);
+                            console.debug(reply.hash);
+                            console.debug(reply.key);
+
+                            var se = new Date().getMilliseconds();
+//                          $('#result').html(uploadSpace + '/' + fileName + '?v=' + se);
+                            $('#uploadButton4').attr("src",uploadSpace + '/' + fileName + '?v=' + se);
+                            $('#hresult4').val(uploadSpace + '/' + fileName + '?v=' + se);
+                        },
+                        function(err) {
+                            // 上传失败
+                            console.error(err);
+                        }
+                    );
+            });
+
+
+
+            //上传图5
+            qiniu.bind($('#uploadButton5'), {
+                filter: 'image'
+            }).on('file', function(file) {
+
+                check(5);
+                console.debug('---');
+
+                var imagesBucket = qiniu.bucket('community', {
+                    putToken: _token
+                });
+
+                console.debug('B: ' + _token);
+
+                // 上传文件名
+//                var fileName = 'abc_' + new Date().getMilliseconds() + '.jpg';
+
+//                var fileName
+
+                console.debug(file);
+
+                var fileName = file.name;
+
+                fileName = fileName+new Date().getMilliseconds();
+
+//                    return;
+
+                console.debug('文件名：'  + fileName);
+
+
+                // Upload
+                imagesBucket.putFile(fileName, file)
+                    .then(
+                        function(reply) {
+                            // 上传成功
+//                            console.dir(reply);
+                            console.debug(reply.hash);
+                            console.debug(reply.key);
+
+                            var se = new Date().getMilliseconds();
+//                          $('#result').html(uploadSpace + '/' + fileName + '?v=' + se);
+                            $('#uploadButton5').attr("src",uploadSpace + '/' + fileName + '?v=' + se);
+                            $('#hresult5').val(uploadSpace + '/' + fileName + '?v=' + se);
+                        },
+                        function(err) {
+                            // 上传失败
+                            console.error(err);
+                        }
+                    );
+            });
+
+        })
+
+		function check(t){
+		    var x=t+1
+			if(x<6){
+                $('#ub'+x).css("display","block");
+			}
+		}
+
+		function submit(){
+		    var img="";
+
+            var img1=$('#hresult1').val();
+            var img2=$('#hresult2').val();
+            var img3=$('#hresult3').val();
+            if(img1!=null && img1!=''){
+                img=img+img1;
+            }
+            if(img2!=null && img2!=''){
+                img=img+','+img2;
+            }
+            if(img3!=null && img3!=''){
+                img=img+','+img3;
+            }
+            var content=$("#content").val();
+            var id=$("#orderid").val();
+
+            $.ajax({
+                url:"/market/discuss",
+                data:{id:id,content:content,img:img},
+                type:"post",
+                success:function(data){
+                    if(data=="success"){
+                        alert("评价成功")
+                        window.location.href="/"
+                    }
+                }
+            })
+		}
+        function submitwybx(){
+            var content=$("#content").val();
+            var img="";
+            var img1=$("#hresult1").val();
+            var img2=$("#hresult2").val();
+            var img3=$("#hresult3").val();
+            var img4=$("#hresult4").val();
+            var img5=$("#hresult5").val();
+            if(img1!="" && img1!=null){
+                img=img+img1;
+                if(img2!="" && img2!=null){
+                    img=img+","+img2;
+                    if(img3!="" && img3!=null){
+                        img=img+","+img3;
+                        if(img4!="" && img4!=null){
+                            img=img+","+img4;
+                            if(img5!="" && img5!=null){
+                                img=img+","+img5;
+                            }
+                        }
+                    }
+                }
+            }
+
+            $.ajax({
+                url:"/pm/addbx",
+                type:"get",
+                data:{content:content,img:img},
+                success:function(date){
+                    if(date=="success"){
+                        alert("报修成功")
+                    }
+                }
+            })
+        }
+		/*]]>*/
+	</script>
+</html>

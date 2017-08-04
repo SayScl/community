@@ -15,5 +15,6 @@ public class DemoApplication extends WebMvcConfigurerAdapter {
 
 	public void addInterceptors(InterceptorRegistry interceptorRegistry){
 		interceptorRegistry.addInterceptor(new Interceptor()).addPathPatterns("/market/**");
+		interceptorRegistry.addInterceptor(new Interceptor()).addPathPatterns("/pm/**");
 	}
 }

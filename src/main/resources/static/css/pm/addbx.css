@@ -1,0 +1,63 @@
+*{
+	padding: 0;
+	margin: 0;
+}
+.main{
+    width: 500px;
+    height: 690px;
+    margin: auto;
+}
+.top{
+	height: 100px;
+    background-color: #F44667;
+    display: flex;
+    display: -webkit-flex;
+    flex-flow: row nowrap;
+    justify-content: flex-start;
+}
+.topone{
+	width: 36%;margin-top: 40px;
+}
+.toptwo{
+	margin-top: 40px;
+}
+.topfont{
+    font-size: 2em; color: white;
+}
+.center{
+    display: flex;
+    display: -webkit-flex;
+    flex-flow: column nowrap;
+    font-size: 1em;
+}
+.cpic{
+    width: 70px;margin-left: 20px;
+    margin-top: 10px;
+}
+.cfont{
+    height: 30px;margin-top: 23px;
+}
+.cdivpic{
+    width: 80px;height: 80px;
+}
+.centerone{
+    display: flex;display: -webkit-flex;flex-flow: row nowrap;justify-content: flex-start
+}
+.cdiv2{
+    align-self: center;margin-top: 20px
+}
+.centertwo{
+    display: flex;display: -webkit-flex;flex-flow: column nowrap;justify-content: flex-start
+}
+.submit{
+    height: 40px;width: 90%;background-color: #F24268;margin: auto
+}
+.submitone{
+    width:100px;color: white;margin-left: 210px;padding-top: 10px
+}
+.ctdiv1{
+    display: flex;
+    display: -webkit-flex;
+    flex-flow: row nowrap;
+    margin-left: 20px
+}

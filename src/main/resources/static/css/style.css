@@ -4,7 +4,7 @@ abbr,address,article,aside,audio,b,blockquote,body,canvas,caption,cite,code,dd,d
 /*-------------------------归零样式END，请于样式表最前面调用-------------------------*/
 
 /*-----------------自定义按钮样式，移动端不需要，PC端根据实际情况选择----------------*/
-.demo {width: 800px;height: 450px;font-size: 14px;position:relative;}
+.demo {width: 500px;height: 150px;font-size: 14px;position:relative;}
 .demo a.control {position:absolute;display: block;top: 50%;margin-top: -78px;width: 76px;height: 112px;cursor: pointer;z-index: 2;}
 .demo a.prev {left: 0;background-position: 0 0}
 .demo a.next {right: 0;background-position: -76px 0}

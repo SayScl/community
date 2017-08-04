@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title></title>
+    <link rel="stylesheet" href="/css/pm/gginfo.css"/>
+    <link href="/css/pm/bootstrap.min.css" rel="stylesheet"/>
+    <link rel="stylesheet" type="text/css" href="/css/pm/zzsc-demo.css"/>
+    <link rel="stylesheet" href="/css/pm/baguetteBox.min.css"/>
+    <link rel="stylesheet" href="/css/pm/gallery-clean.css"/>
+</head>
+<body>
+<div class="main">
+    <div class="top">
+        <div class="one">
+            <div class="onediv"><span style="font-size: 3em;color: white;">&lt;</span></div>
+            <div class="div2"><span style="font-size: 2em;color: white;">小区投票</span></div>
+        </div>
+    </div>
+
+    <div id="center"  class="center">
+        <input id="tid" type="hidden" th:value="${xqtp.id}"/>
+        <div class="cdiv1"><span class="scdiv1" th:text="${xqtp.title}"></span></div>
+        <div class="cdiv2" ><span class="scdiv2" th:text="${xqtp.createtime}"></span></div>
+        <div class="cdiv3" ><span class="scdiv3" th:text="${xqtp.content}"></span></div>
+        <p><span th:text="${xqtp.type==1?'单选':'多选'}"></span><span th:text="最多选择"></span><span id="cnum" th:text="${xqtp.cnum}"></span><span >项</span></p>
+        <div>
+            <p id="0" onclick="see(this)" th:each="se:${xqtp.lse}">
+                <input type="hidden" th:value="${se.id}"/>
+                <img style="width: 50px" th:src="${se.path}"/>
+                <span th:text="${se.content}"></span>
+            </p>
+        </div>
+        <div onclick="tp()" style="background-color: #F64B64"><div style="margin: auto">投票</div></div>
+
+    </div>
+</div>
+
+</body>
+<script src="/jquery-3.1.1.min.js"></script>
+<script type="text/javascript" src="/js/pm/baguetteBox.min.js"></script>
+<script th:inline="javascript">
+    /*<![CDATA[*/
+    var cnum=parseInt($("#cnum").text());
+
+    function see(t){
+        var imgg=$("[name='imgg']");
+        var id=$(t).attr("id");
+        var flag=$(t).find("input").val();
+        if(imgg.length>=cnum && id=='0'){
+            alert("不能超选")
+            return false;
+        }
+        if(id=='0'){
+            $(t).append("<img style='width: 20px' name='imgg' id='"+flag+"' src='/img/pm/勾.png'>")
+            $(t).attr("id","1");
+        }else{
+            $("#"+flag+"").remove();
+            $(t).attr("id","0");
+        }
+    }
+
+    function tp(){
+        var id="";
+        var tid=$("#tid").val();
+        var imgg=$("[name='imgg']");
+        for(var i=0;i<imgg.length;i++){
+           if(i==0){
+               id=id+$(imgg[i]).attr("id");
+           }else{
+               id=id+","+$(imgg[i]).attr("id");
+           }
+        }
+        $.ajax({
+            url:"/pm/tp",
+            data:{id:id,tid:tid},
+            type:"post",
+            success:function(date){
+                if(date=="success"){
+                    alert("投票成功")
+                    window.location.href="/pm/totpinfo?id="+tid
+                }
+            }
+        })
+    }
+
+    /*]]>*/
+</script>
+</html>

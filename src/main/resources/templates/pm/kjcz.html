@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title></title>
+    <link rel="stylesheet" href="/css/pm/kjcz.css"/>
+</head>
+<body>
+<div class="main">
+    <div class="top">
+        <div class="one">
+            <div class="onediv"><span style="font-size: 3em;color: white;">&lt;</span></div>
+            <div class="div2"><span style="font-size: 2em;color: white;">生活缴费</span></div>
+        </div>
+    </div>
+
+    <div  class="center">
+        <div class="cdiv1">缴费金额</div>
+        <div class="cdiv2">
+            <div id="cdiv2-1" onclick="money(this)"><img class="d2pic"  src="/img/pm/100.png" alt="100"/></div>
+            <div id="cdiv2-2" onclick="money(this)"><img class="d2pic" src="/img/pm/200.png" alt="200"/></div>
+            <div id="cdiv2-3" onclick="money(this)"><img class="d2pic" src="/img/pm/500.png" alt="500"/></div>
+        </div>
+        <div class="cdiv6"><input class="in6" type="text" placeholder="其他"/></div>
+        <input id="money" type="hidden"/>
+        <div class="cdiv3">缴费类型</div>
+        <div class="cdiv4">
+            <div id="cdiv4-1" onclick="type(this)"><img class="d4pic" src="/img/pm/水费.png" alt="0"/></div>
+            <div id="cdiv4-2" onclick="type(this)"><img class="d4pic" src="/img/pm/电费.png" alt="1"/></div>
+            <div id="cdiv4-3" onclick="type(this)"><img class="d4pic" src="/img/pm/气费.png" alt="2"/></div>
+            <input id="type" type="hidden"/>
+        </div>
+        <div class="cdiv5" onclick="submitcz()">确认缴费</div>
+    </div>
+    <div style="margin: auto"><a style="text-decoration: none;color: #F64B64" th:href="@{/pm/getczbyuserid}">充值历史</a></div>
+</div>
+
+</body>
+<script src="/jquery-3.1.1.min.js"></script>
+<script th:inline="javascript">
+    /*<![CDATA[*/
+var money1;
+var type1;
+    function money(t){
+        money1= $(t).find("img").attr("alt");
+       alert(money1)
+    }
+
+    function type(t){
+        type1= $(t).find("img").attr("alt");
+        alert(type1)
+    }
+
+    function submitcz(){
+        if($("[class='in6']").val()!=null && $("[class='in6']").val()!=''&&$("[class='in6']").val()!='其他'){
+            money1=$("[class='in6']").val();
+        }
+        if(money1==null ||money1==''){
+            alert("请选择充值面额");
+            return false;
+        }
+        if(type1==null){
+            alert("请选择充值类型");
+            return false;
+        }
+        $.ajax({
+            url:"/pm/addcz",
+            type:"post",
+            data:{type:type1,money:money1},
+            success:function(date){
+                if(date=="success"){
+                    alert("充值成功")
+                }
+            }
+        })
+    }
+
+    /*]]>*/
+</script>
+</html>

@@ -1,0 +1,80 @@
+*{
+    margin: 0;
+    padding: 0;
+    font-family: 微软雅黑;
+}
+.main{
+    height: 690px;
+    width: 500px;
+    margin: auto;
+    display: flex;
+    display: -webkit-flex;
+    flex-flow: column nowrap;
+}
+.top{
+    display: flex;
+    display: -webkit-flex;
+    flex-flow: column nowrap;
+    height: 15%;
+    background-color:#F34369;
+}
+.one{
+    display: flex;
+    display: -webkit-flex;
+    flex-flow: row nowrap;
+    justify-content: flex-start;
+
+}
+.onediv{
+    width: 40%;margin-left: 10px;margin-top: 12px;
+}
+.div2{
+    margin-top: 23px;
+    width: 50%;
+}
+.div3{
+    margin-top: 20px;
+}
+.center{
+    display: flex;
+    display: -webkit-flex;
+    flex-flow: column nowrap;
+    height: 75%;
+}
+.cdiv2{
+    display: flex;
+    display: -webkit-flex;
+    flex-flow: row nowrap;
+    height: 90px;
+    width: 470px;
+    margin-top: 40px;
+}
+.d2pic{
+    width: 160px;
+}
+.cdiv4{
+    display: flex;
+    display: -webkit-flex;
+    flex-flow: row nowrap;
+    height: 160px;
+    width: 470px;
+    margin-top: 20px;
+}
+.d4pic{
+    width: 160px;
+}
+.cdiv5{
+    height: 50px;
+    width: 470px;
+    background-color: #F44667;
+    color: white;
+    text-align: center;
+    line-height: 40px;
+    margin-top: 20px;
+}
+.in6{
+    width: 480px;
+    height: 50px;
+    border: 1px solid #F44667;
+}
+input::-webkit-input-placeholder{text-align: center;}

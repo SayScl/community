@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title></title>
+    <link rel="stylesheet" href="/css/pm/wybx.css"/>
+</head>
+<body>
+<div class="main">
+    <div class="top">
+        <div class="one">
+            <div class="onediv"><span style="font-size: 3em;color: white;">&lt;</span></div>
+            <div class="div2"><span style="font-size: 2em;color: white;">装修案例</span></div>
+            <div class="div3">
+                <a th:href="@{/pm/towdzx(id=${session.user.id})}" style="cursor: pointer"><img style="width: 50px" src="/img/pm/browse.png"/></a>
+            </div>
+        </div>
+    </div>
+
+    <div  class="center">
+        <div  class="centerone" th:each="xfzx:${xfzx}">
+            <a th:href="@{/pm/tozxinfo(id=${xfzx.id},hot=${xfzx.hot})}">
+            <div class="cdiv" th:text="${xfzx.createtime}" >创建时间</div>
+            <div class="cdiv1">
+                <div class="cdiv1-1" th:text="${xfzx.title}"></div>
+                <div class="cdiv1-2"><span>热度</span><span th:text="${xfzx.hot}"></span></div>
+            </div>
+            </a>
+        </div>
+    </div>
+</div>
+
+</body>
+<script src="/jquery-3.1.1.min.js"></script>
+<script th:inline="javascript">
+    /*<![CDATA[*/
+    /*]]>*/
+</script>
+</html>

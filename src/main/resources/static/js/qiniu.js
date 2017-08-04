@@ -2250,7 +2250,7 @@
      });
      utils.css(input, {
        width: el.offsetWidth + 5,
-       height: el.offsetHeight + 5,
+       height: el.offsetHeight +5,
        position: 'relative'
      });
 

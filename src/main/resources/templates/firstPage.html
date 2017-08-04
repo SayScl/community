@@ -6,25 +6,33 @@
     <link rel="stylesheet" href="/css/firstPage.css" />
     <link rel="stylesheet" href="/css/style.css"/>
 </head>
+<style type="text/css">
+    *{padding:0; margin:0; font-family:"微软雅黑"}
+    li{list-style:none; padding:0; margin:0}
+    .mains{width:800px;padding-left:15px;margin:0 auto}
+    .mains .title{font-size:25px;text-align:center;padding:10px 5px}
+
+    .g1,.g2,.g3,.g4{width:180px; height:124px; float:left; margin:0 5px 5px 0}
+</style>
 <body>
 <div class="main">
     <div class="top">
-        <div style="font-size: 3.5em;color: white;margin-left: 100px;align-self: center;" >
+        <div style="font-size: 2em;color: white;margin-left: 100px;align-self: center;" >
             <span th:if="${stat=='login'}"  th:text="${session.user.community}">所在小区</span>
             <span th:if="${stat=='nologin'}" >所在小区</span>
         </div>
 
-        <div style="font-size: 4em;color: white; margin: auto;">迷家</div>
+        <div style="font-size: 2em;color: white; margin: auto;">迷家</div>
 
-        <div style="margin-right: 100px; align-self: center;"><img src="/img/firstpage/speak.png" style="opacity: .5;"></img></div>
+        <div style="margin-right: 100px; align-self: center;"><img  src="/img/firstpage/speak.png" style="opacity: .5;width: 50px"></img></div>
     </div>
 
 
-    <div class="demo" style="width:100%">
+    <div class="demo" >
         <a class="control prev"></a><a class="control next abs"></a><!--自定义按钮，移动端可不写-->
-        <div class="slider"><!--主体结构，请用此类名调用插件，此类名可自定义-->
-            <ul >
-                <li th:each="ad:${list}"><a href=""><img th:src="${ad.path}" alt="" /></a></li>
+        <div   class="slider"><!--主体结构，请用此类名调用插件，此类名可自定义-->
+            <ul  >
+                <li  th:each="ad:${list}"><a href=""><img  th:src="${ad.path}" alt="" /></a></li>
             </ul>
         </div>
     </div>
@@ -33,58 +41,66 @@
 
 
     <div class="channel">
-        <div style="height: 200px;width: 180px;margin-left:50px;" th:each="limit:${limits}">
-            <a th:if="${stat=='login'}" th:href="${limit.url}"><img th:src="${limit.path}"/></a>
-            <a th:if="${stat=='nologin'}" th:href="@{/user/goLogin}"><img th:src="${limit.path}"/></a>
+        <div style="height: 60px;width: 60px;margin-left:50px;" th:each="limit:${limits}">
+            <a style="width: 60px" th:if="${stat=='login'}" th:href="${limit.url}"><img class="cpic" th:src="${limit.path}"/></a>
+            <a style="width: 60px" th:if="${stat=='nologin'}" th:href="@{/user/goLogin}"><img class="cpic" th:src="${limit.path}"/></a>
         </div>
     </div>
 
 
 
     <div class="business">
-        <div style="border: gray 1px solid;margin-right: 50px;width: 450px;margin-top: 20px;flex-flow:column nowrap;">
-            <div style="font-size: 3em;color: #92BDFF;margin-top: 15px;margin-left: 10px;">物业工作展示</div>
-            <div style="color: gray;margin-top: 15px;margin-left: 10px;">杰出物业，完美工作</div>
+        <div class="businessone">
+            <div class="wfont">小区公告</div>
+            <div class="wfont2">即时公告，精准投放</div>
+            <div class="mains">
+            <div class="g1">
+                <ul>
+                    <li  style="height: 60px;" th:if="${stat=='login'}" th:text="${gg.title}"></li>
+                    <li  th:if="${stat=='login'}" th:text="${gg.content}"></li>
+                </ul>
+            </div>
+            </div>
         </div>
-        <div style="display: flex;display: -webkit-flex;flex-flow: column nowrap;">
-            <div style="border: gray 1px solid;margin-top: 20px;width: 350px;">
-                <div style="display: flex;display: -webkit-flex;flex-flow:column nowrap;justify-content: flex-start;;height: 180px">
-                    <div style="font-size: 3em;color: #F377D7;margin-top: 15px;margin-left: 10px;;width: 150px">业主投票</div>
-                    <div style="color: gray;margin-top: 15px;margin-left: 10px;;width: 150px">轻松便捷，业主福利</div>
-                    <div style="display: flex;display: -webkit-flex;justify-content: flex-end;"><img src="/img/firstpage/业主投票.png"/></div>
+        <div class="businessright">
+            <div class="yetoudiv">
+                <div class="yetoudiv1">
+                    <div class="yetoufont1">业主投票</div>
+                    <div class="yetoufont2">轻松便捷，业主福利</div>
+                    <div class="yetoupic"><img class="pci" src="/img/firstpage/业主投票.png"/></div>
                 </div>
 
 
             </div>
-            <div style="border: gray 1px solid;margin-top: 20px;width: 350px;">
-                <div style="display: flex;display: -webkit-flex;flex-flow:column nowrap;justify-content: flex-start;;height: 180px">
-                    <div style="font-size: 3em;color: #A4E167;margin-top: 15px;margin-left: 10px;;width: 150px">小区公告</div>
-                    <div style="color: gray;margin-top: 15px;margin-left: 10px;;width: 150px">即时公告，精准投放</div>
-                    <div style="display: flex;display: -webkit-flex;justify-content: flex-end;"><img src="/img/firstpage/小区公告.png"/></div>
+            <div class="yetoudiv">
+                <div class="yetoudiv1">
+                    <div class="yetoufont1">物业工作展示</div>
+                    <div class="yetoufont2">杰出物业，完美工作</div>
+                    <div class="yetoupic"><img class="pci" src="/img/firstpage/小区公告.png"/></div>
                 </div>
             </div>
-            <div style="border: gray 1px solid;margin-top: 20px;width: 350px;">
-                <div style="display: flex;display: -webkit-flex;flex-flow:column nowrap;justify-content: flex-start;height: 180px">
-                    <div style="font-size: 3em;color: #FE976B;margin-top: 15px;margin-left: 10px;width: 150px">物业报修</div>
-                    <div style="color: gray;margin-top: 15px;margin-left: 10px;width: 150px">专业团队，急速处理</div>
-                    <div style="display: flex;display: -webkit-flex;justify-content: flex-end;"><img src="/img/firstpage/物业报修.png"/></div>
+            <div class="yetoudiv" >
+                <div class="yetoudiv1">
+                    <div class="yetoufont1">物业报修</div>
+                    <div class="yetoufont2">专业团队，急速处理</div>
+                    <div class="yetoupic"><img class="pci" src="/img/firstpage/物业报修.png"/></div>
                 </div>
             </div>
         </div>
     </div>
 
-    <div class="floor">
-        <div style="margin-right: 100px;font-size: 2em;">
-            <img src="/img/firstpage/主页.png"/>
+    <div  class="floor">
+        <div class="floordiv">
+            <img class="floorpic" src="/img/firstpage/主页.png"/>
         </div>
-        <div style="margin-right: 100px;font-size: 2em;">
-            <a th:href="@{/market/showorder}"><img src="/img/firstpage/订单.png"/></a>
+        <div class="floordiv">
+            <a th:href="@{/market/showorder}"><img class="floorpic" src="/img/firstpage/订单.png"/></a>
         </div>
-        <div style="margin-right: 100px;font-size: 2em;">
-            <img src="/img/firstpage/我的.png"/>
+        <div class="floordiv">
+            <img class="floorpic" src="/img/firstpage/我的.png"/>
         </div>
-        <div style="font-size: 2em;">
-            <img src="/img/firstpage/更多.png"/>
+        <div class="floordiv">
+            <img class="floorpic" src="/img/firstpage/更多.png"/>
         </div>
     </div>
 
@@ -95,17 +111,21 @@
 
 <script src="/js/jquery-3.1.1.min.js"></script>
 <script src="/js/YuxiSlider.jQuery.min.js"></script>
+<script type="text/javascript" src="/js/pm/jquery.imgscroll.min.js"></script>
+<script type="text/javascript" src="/js/pm/roll.js"></script>
+
 <script>
     var width1;
     $(".slider").YuxiSlider({
-        width:document.body.scrollWidth,
-        height:450, //容器高度
+        width:500,
+        height:150, //容器高度
         control:$('.control'), //绑定控制按钮
         during:4000, //间隔4秒自动滑动
         speed:800, //移动速度0.8秒
         mousewheel:true, //是否开启鼠标滚轮控制
         direkey:true //是否开启左右箭头方向控制
     });
+
 </script>
 
 </html>

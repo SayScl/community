@@ -4,12 +4,15 @@
 	font-family: "微软雅黑";
 }
 .main{
+	margin: auto;
+	width: 500px;
+	height: 690px;
 	display: flex;
 	display: -webkit-flex;
 	flex-flow: column wrap;
 }
 .top{
-	height: 200px;
+	height: 60px;
 	width: 100%;
 	background-color: #F54866;
 	display: flex;
@@ -19,30 +22,72 @@
 }
 .title{
 	height: 250px;
-	width: 100%;
+	width: 700px;
 }
 .channel{
-	height: 500px;
+	height: 150px;
 	width: 100%;
 	display: flex;
 	display: -webkit-flex;
 	flex-flow: row wrap;
 	justify-content: flex-start;
 }
-.business{
-	height: 600px;
-	width: 100%;
-	display: flex;
-	display: -webkit-flex;
-	flex-flow: row wrap;
-	justify-content: center;
+.cpic{
+	width: 60px
 }
-.floor{
+.business{
 	height: 200px;
 	width: 100%;
 	display: flex;
 	display: -webkit-flex;
 	flex-flow: row wrap;
 	justify-content: center;
+}
+.businessone{
+	border: gray 1px solid;flex-flow:column nowrap;width: 200px;height: 190px;margin-right: 40px;
+}
+.wfont{
+	font-size: 1.5em;color: #92BDFF;margin-top: 15px;margin-left: 10px;
+}
+.wfont2{
+	color: gray;margin-top: 15px;margin-left: 10px;
+}
+.businessright{
+	display: flex;display: -webkit-flex;flex-flow: column nowrap;
+}
+.yetoudiv{
+	border: gray 1px solid;margin-top: 3px;width: 200px;
+}
+.yetoudiv1{
+	display: flex;display: -webkit-flex;flex-flow:column nowrap;justify-content: flex-start;height: 55px
+}
+.yetoufont1{
+	color: gray;margin-left: 5px;
+}
+.pci{
+	width: 20px;height: 20px
+}
+.yetoufont2{
+	display: flex;display: -webkit-flex;justify-content: flex-end;
+}
+.yetoupic{
+	display: flex;display: -webkit-flex;justify-content: flex-end;
+}
+.fontrigth{
+	font-size: 1em;color: #F377D7;margin-top: 15px;margin-left: 10px;;width: 150px
+}
+.floor{
+	height: 100px;
+	width: 100%;
+	display: flex;
+	display: -webkit-flex;
+	flex-flow: row wrap;
+	justify-content: center;
 	align-items: center;
+}
+.floorpic{
+	width: 60px;height: 60px
+}
+.floordiv{
+	margin-right: 60px
 }

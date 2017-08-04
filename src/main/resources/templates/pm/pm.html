@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title></title>
+    <link rel="stylesheet" href="/css/pm/pm.css"/>
+</head>
+<body>
+<div class="main">
+    <div class="top">
+        <div class="one">
+            <div class="onediv"><span style="font-size: 3em;color: white;">&lt;</span></div>
+            <div style="margin-right: 10px;"><img style="width: 50px" src="/img/supermarket/search.png"/></div>
+        </div>
+        <div class="two">
+            <div><a th:href="@{/}"><img style="width: 90px" src="/img/supermarket/LOG.png"/></a></div>
+            <div style="margin-left: 20px;">
+                <div style="margin-top: 5px;"><span style="font-size: 1.5em;color: white;" th:text="${session.user.community}">香榭水岸</span></div>
+                <div><span style="font-size: 1.5em;color: white;">物业服务</span></div>
+            </div>
+        </div>
+        <div class="three">
+            <div align="center" style="color: white;width: 100%;"><hr style="border: white 1px dotted;"/></div>
+            <div align="center" style="margin-top: 5px;"><span style="color: white;">物业功能大集合，一指点击排万难</span></div>
+        </div>
+    </div>
+
+    <div  class="center">
+        <div id="1" onmouseover="adcursor(this)" onclick="to(this)" class="centerone">
+            <div class="picdiv"><img class="picdivimg" src="/img/pm/物业报修.png"/></div>
+            <div class="centertwo">
+                <div class="pdfont">物业报修</div>
+                <div class="pdfont1">专业维修团队，第一时间帮你解决物业设施故障问题</div>
+            </div>
+        </div>
+        <div id="2" onmouseover="adcursor(this)" onclick="to(this)" class="centerone">
+            <div class="picdiv"><img class="picdivimg" src="/img/pm/物业报修.png"/></div>
+            <div class="centertwo">
+                <div class="pdfont">小区公告</div>
+                <div class="pdfont1">停水、停电、停气...从此告别传统公告方式</div>
+            </div>
+        </div>
+        <div id="3" onmouseover="adcursor(this)" onclick="to(this)" class="centerone">
+            <div class="picdiv"><img class="picdivimg" src="/img/pm/物业报修.png"/></div>
+            <div class="centertwo">
+                <div class="pdfont">业主投票</div>
+                <div class="pdfont1">小区整改靠大家，迷家APP投票方便，让业主真正做社区的主人</div>
+            </div>
+        </div>
+        <div id="4" onmouseover="adcursor(this)" onclick="to(this)" class="centerone">
+            <div class="picdiv"><img class="picdivimg" src="/img/pm/物业报修.png"/></div>
+            <div class="centertwo">
+                <div class="pdfont">物业工作展示</div>
+                <div class="pdfont1">可能你平时没有看到，但你确确实实有个相当了不得的物业团队</div>
+            </div>
+        </div>
+        <div id="5" onmouseover="adcursor(this)" onclick="to(this)" class="centerone">
+            <div class="picdiv"><img class="picdivimg" src="/img/pm/物业报修.png"/></div>
+            <div class="centertwo">
+                <div class="pdfont">水电气充值</div>
+                <div class="pdfont1">足不出户，充值方便</div>
+            </div>
+        </div>
+    </div>
+</div>
+
+</body>
+<script src="/jquery-3.1.1.min.js"></script>
+<script th:inline="javascript">
+    /*<![CDATA[*/
+    function adcursor(t){
+        $(t).css("cursor","pointer")
+    }
+    function to(t){
+        var id=$(t).attr("id");
+        switch(parseInt(id)){
+            case 1:
+                window.location.href="/pm/towybx"
+                break;
+            case 2:
+                window.location.href="/pm/toxqgg"
+                break;
+            case 3:
+                window.location.href="/pm/toxqtp"
+                break;
+            case 4:
+                window.location.href="/pm/towyzs"
+                break;
+            case 5:
+                window.location.href="/pm/tokjcz"
+                break;
+        }
+    }
+    /*]]>*/
+</script>
+</html>

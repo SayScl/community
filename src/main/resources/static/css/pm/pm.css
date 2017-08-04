@@ -1,0 +1,73 @@
+*{
+	margin: 0;
+	padding: 0;
+	font-family: 微软雅黑;
+}
+.main{
+	height: 690px;
+	width: 500px;
+	margin: auto;
+	display: flex;
+	display: -webkit-flex;
+	flex-flow: column nowrap;
+}
+.top{
+	display: flex;
+	display: -webkit-flex;
+	flex-flow: column nowrap;
+	height: 25%;
+	background-color:#D43F5D;
+}
+.one{
+	display: flex;
+	display: -webkit-flex;
+	flex-flow: row nowrap;
+	justify-content: flex-start;
+	
+}
+.onediv{
+	width: 100%;margin-left: 10px;
+}
+.two{
+	margin-top: 5px;
+	display: flex;
+	display: -webkit-flex;
+	flex-flow: row nowrap;
+	justify-content: center;
+}
+.center{
+	height: 75%;
+}
+.centerone{
+	display: flex;
+	display: -webkit-flex;
+	flex-flow: row nowrap;
+	justify-content: flex-start;
+}
+.centertwo{
+	width: 440px;
+	display: flex;
+	display: -webkit-flex;
+	flex-flow: column nowrap;
+}
+.picdiv{
+	width: 100px;
+	height: 100px;
+	text-align: center;
+
+}
+.picdivimg{
+	width: 80px;
+	padding-top: 10px;
+}
+.pdfont{
+	margin-left: 10px;
+	padding-top: 20px;
+	font-size: 30px;
+}
+.pdfont1{
+	margin-left: 10px;
+	padding-top: 7px;
+	font-size: 10px;
+	color: grey;
+}

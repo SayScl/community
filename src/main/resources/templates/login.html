@@ -10,29 +10,29 @@
 <div class="main">
 
     <div class="top">
-        <div style="margin-left: 100px;"><span style="font-size: 5em;color: white;"><a href="javascript:history.go(-1);window.reload()" style="text-decoration: none;cursor: pointer;color: white">&lt;</a></span></div>
-        <div ><span style="font-size: 4em;color: white;">登录</span></div>
-        <div style="margin-right: 100px;"><span style="font-size: 4em;color: white;"><a style="text-decoration: none;cursor: pointer;color: white" th:href="@{/user/goRegister}">注册</a></span></div>
+        <div style="margin-left: 30px;"><span style="font-size: 3em;color: white;"><a href="javascript:history.go(-1);window.reload()" style="text-decoration: none;cursor: pointer;color: white">&lt;</a></span></div>
+        <div ><span style="font-size: 2.5em;color: white;">登录</span></div>
+        <div style="margin-right: 30px;"><span style="font-size: 2.5em;color: white;"><a style="text-decoration: none;cursor: pointer;color: white" th:href="@{/user/goRegister}">注册</a></span></div>
     </div>
 
-    <div class="pic"><img src="/img/login/log.png" style="margin-top: 150px;opacity: 0.6;"></img></div>
+    <div class="pic"><img  src="/img/login/log.png" style="margin-top: 30px;opacity: 0.6;width: 200px"></img></div>
 
     <div class="content">
         <div>
-            <p style="font-size: 2em;color: floralwhite;margin-top: 50px;" >手机</p>
-            <input type="text" id="phoneNumber" style="border: none;background-color: transparent;border-bottom:1px solid white;height: 40px;font-size: 1.5em" size="35%" />
+            <p style="font-size: 1em;color: floralwhite;margin-top: 50px;" >手机</p>
+            <input type="text" id="phoneNumber" style="border: none;background-color: transparent;border-bottom:1px solid white;height: 40px;font-size: 1em" size="35%" />
         </div>
         <div>
-            <p style="font-size: 2em;color: floralwhite;margin-top: 5px;">密码</p>
-            <input type="password"  id="password" style="border: none;background-color: transparent;border-bottom:1px solid white;height: 40px;font-size: 1.5em"  size="35%"/>
+            <p style="font-size: 1em;color: floralwhite;margin-top: 5px;">密码</p>
+            <input type="password"  id="password" style="border: none;background-color: transparent;border-bottom:1px solid white;height: 40px;font-size: 1em"  size="35%"/>
         </div>
         <div>
-            <button style="background-color: transparent;border: 1px solid floralwhite;border-radius: 25px;margin-top: 20px;width: 400px;">
-                <p style="font-size: 2em;color: whitesmoke;" onclick="login()">登录</p>
+            <button style="background-color: transparent;border: 1px solid floralwhite;border-radius: 25px;margin-top: 20px;width: 300px;">
+                <p style="font-size: 1em;color: whitesmoke;" onclick="login()">登录</p>
             </button>
         </div>
         <div>
-            <p style="margin-top: 20px;color: floralwhite;font-size: 1.5em" onclick="javascript:window.location.href='/user/goModify'">忘记密码?</p>
+            <p style="margin-top: 20px;color: floralwhite;font-size: 1em" onclick="javascript:window.location.href='/user/goModify'">忘记密码?</p>
         </div>
     </div>
 </div>

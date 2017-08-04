@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title></title>
+    <link rel="stylesheet" href="/css/pm/kjcz.css"/>
+</head>
+<body>
+<div class="main">
+    <div class="top">
+        <div class="one">
+            <div class="onediv"><span style="font-size: 3em;color: white;">&lt;</span></div>
+            <div class="div2"><span style="font-size: 2em;color: white;">充值历史</span></div>
+        </div>
+    </div>
+
+    <div  class="center">
+        <table>
+            <tr>
+                <th>充值类型</th>
+                <th>充值价格</th>
+                <th>充值时间</th>
+            </tr>
+            <tr th:each="kjcz:${kjcz}">
+                <th th:if="${kjcz.type}==0" th:text="水费"></th>
+                <th th:if="${kjcz.type}==1" th:text="电费"></th>
+                <th th:if="${kjcz.type}==2" th:text="气费"></th>
+                <th  th:text="${kjcz.money}"></th>
+                <th  th:text="${kjcz.createtime}"></th>
+            </tr>
+        </table>
+    </div>
+</div>
+
+</body>
+<script src="/jquery-3.1.1.min.js"></script>
+<script th:inline="javascript">
+    /*<![CDATA[*/
+
+    /*]]>*/
+</script>
+</html>

@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title></title>
+    <link rel="stylesheet" href="/css/pm/wybx.css"/>
+</head>
+<body>
+<div class="main">
+    <div class="top">
+        <div class="one">
+            <div class="onediv"><span style="font-size: 3em;color: white;">&lt;</span></div>
+            <div class="div2"><span style="font-size: 2em;color: white;">物业报修</span></div>
+            <div class="div3">
+                <a href="/pm/toaddbx" style="cursor: pointer"><img style="width: 50px" src="/img/pm/add.png"/></a>
+            </div>
+        </div>
+    </div>
+
+    <div  class="center">
+        <div  class="centerone" th:each="wybx,iterstatu:${wybx}">
+            <div class="cdiv" th:text="${wybx.createtime}" >报修时间</div>
+            <div class="cdiv1">
+                <div class="cdiv1-1" th:text="${wybx.content}">内容1111奇才大地回春要右在奔跑大跃进 夺sdf顶替村</div>
+                <div class="cdiv1-2" th:if="${wybx.statu}==0" th:text="已报修"></div>
+                <div class="cdiv1-2" th:if="${wybx.statu}==1" th:text="处理中"></div>
+                <div class="cdiv1-2" th:if="${wybx.statu}==2" th:text="处理完"></div>
+                <div class="cdiv1-2" th:if="${wybx.statu}==3" th:text="处理完"></div>
+            </div>
+            <div class="cdiv2" th:if="${wybx.statu}==2" ><span th:id="${wybx.id}" onclick="confirm(this)" th:text="确认"></span></div>
+        </div>
+    </div>
+</div>
+
+</body>
+<script src="/jquery-3.1.1.min.js"></script>
+<script th:inline="javascript">
+    /*<![CDATA[*/
+
+    function confirm(t){
+        debugger
+        var id=$(t).attr("id");
+        $.ajax({
+            url:"/pm/confirmbx",
+            data:{id:id},
+            type:"post",
+            success:function(date){
+                if(date=='success'){
+                    alert("确认完毕")
+                    window.location.href="/pm/towybx"
+                }
+            }
+        })
+    }
+    /*]]>*/
+</script>
+</html>

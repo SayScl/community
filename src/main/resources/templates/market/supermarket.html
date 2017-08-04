@@ -370,9 +370,10 @@
             $("#oproductcount"+i).text(oproductcount);
             $("#oproducttotalprice"+i).text((oproductcount*price).toFixed(1));
             totalprice=totalprice-price;
+            var ptotalprice=price*oproductcount;
             $.ajax({
                 url:"/market/uproducttotal",
-                data:{productid:productid,totalprice:totalprice,productcount:oproductcount},
+                data:{productid:productid,totalprice:ptotalprice,productcount:oproductcount},
                 type:"post",
                 success:function(data){
                     if(data=="success"){
@@ -413,11 +414,11 @@
             alert("一次不能超过十个")
             $("#oproductcount"+i).text(10);
             $("#oproducttotalprice"+i).text(10*price);
-            totalprice=10*price;
+            var ptotalprice=10*price;
             oproductcount=10;
             $.ajax({
                 url:"/market/uproducttotal",
-                data:{productid:productid,totalprice:totalprice,productcount:oproductcount},
+                data:{productid:productid,totalprice:ptotalprice,productcount:oproductcount},
                 type:"post",
                 success:function(data){
                     if(data=="success"){
@@ -426,15 +427,17 @@
                 }
             })
         }else{
+            debugger
             oproductcount=parseInt(oproductcount)+1;
             $("#oproductcount"+i).text(oproductcount);
-            $("#oproducttotalprice"+i).text(oproductcount*price);
-            totalprice=parseFloat(totalprice)+parseFloat(price);
-            $("#osmallcount").text(totalprice.toFixed(1));
-            totalprice=totalprice.toFixed(1);
+            $("#oproducttotalprice"+i).text((oproductcount*price).toFixed(1));
+            totalprice=(parseFloat(totalprice)+parseFloat(price)).toFixed(1);
+            $("#osmallcount").text(totalprice);
+            totalprice=totalprice;
+            var ptotalprice=price*oproductcount;
             $.ajax({
                 url:"/market/uproducttotal",
-                data:{productid:productid,totalprice:totalprice,productcount:oproductcount},
+                data:{productid:productid,totalprice:ptotalprice,productcount:oproductcount},
                 type:"post",
                 success:function(data){
                     if(data=="success"){

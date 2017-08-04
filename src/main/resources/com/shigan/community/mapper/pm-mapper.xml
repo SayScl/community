@@ -1,0 +1,225 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.shigan.mapper.PmMapper">
+    <!--物业报修Map-->
+    <resultMap id="wybxMap" type="wybx">
+        <id property="id" column="id"></id>
+        <result property="content" column="content"></result>
+        <result property="path" column="path"></result>
+        <result property="createtime" column="createtime"></result>
+        <result property="statu" column="statu"></result>
+        <result property="userid" column="userid"></result>
+        <result property="communityid" column="communityid"></result>
+    </resultMap>
+
+
+    <!--小区公告Map-->
+    <resultMap id="xqggMap" type="xqgg">
+        <id property="id" column="id"></id>
+        <result property="content" column="content"></result>
+        <result property="path" column="path"></result>
+        <result property="createtime" column="createtime"></result>
+        <result property="communityid" column="communityid"></result>
+        <result property="user" column="user"></result>
+        <result property="title" column="title"></result>
+    </resultMap>
+
+
+    <!--物业工作展示-->
+    <resultMap id="wyzsMap" type="wyzs">
+        <id property="id" column="id"></id>
+        <result property="content" column="content"></result>
+        <result property="path" column="path"></result>
+        <result property="createtime" column="createtime"></result>
+        <result property="communityid" column="communityid"></result>
+        <result property="user" column="user"></result>
+        <result property="title" column="title"></result>
+    </resultMap>
+
+
+
+    <!--新房装修-->
+    <resultMap id="xfzxMap" type="xfzx">
+        <id property="id" column="id"></id>
+        <result property="content" column="content"></result>
+        <result property="path" column="path"></result>
+        <result property="createtime" column="createtime"></result>
+        <result property="communityid" column="communityid"></result>
+        <result property="user" column="user"></result>
+        <result property="userid" column="userid"></result>
+        <result property="title" column="title"></result>
+        <result property="hot" column="hot"></result>
+    </resultMap>
+
+
+    <!--我的装修-->
+    <resultMap id="wdzxMap" type="wdzx">
+        <id property="id" column="id"></id>
+        <result property="content" column="content"></result>
+        <result property="progress" column="progress"></result>
+        <result property="path" column="path"></result>
+        <result property="userid" column="userid"></result>
+        <result property="createtime" column="createtime"></result>
+        <result property="communityid" column="communityid"></result>
+        <result property="cuserid" column="cuserid"></result>
+    </resultMap>
+
+<!--快捷充值Map-->
+    <resultMap id="kjczMap" type="kjcz">
+        <id property="id" column="id"></id>
+        <result property="userid" column="userid"></result>
+        <result property="communityid" column="communityid"></result>
+        <result property="money" column="money"></result>
+        <result property="createtime" column="createtime"></result>
+        <result property="type" column="type"></result>
+        <result property="statu" column="statu"></result>
+    </resultMap>
+
+
+
+    <!--投票选项-->
+    <resultMap id="seMap" type="se">
+        <id property="id" column="id"></id>
+        <result property="tid" column="tid"></result>
+        <result property="content" column="content"></result>
+        <result property="progress" column="progress"></result>
+        <result property="path" column="path"></result>
+    </resultMap>
+
+    <!--小区投票Map-->
+    <resultMap id="xqtpMap" type="xqtp">
+        <id column="id" property="id"></id>
+        <result property="title" column="title"></result>
+        <result property="se" column="se"></result>
+        <result property="createtime" column="createtime"></result>
+        <result property="type" column="type"></result>
+        <result property="cnum" column="cnum"></result>
+        <result property="communityid" column="communityid"></result>
+        <result property="content" column="content"></result>
+        <result property="confirm" column="confirm"></result>
+    </resultMap>
+
+    <!--用户投票-->
+    <resultMap id="usertpMap" type="usertp">
+        <id property="id" column="id"></id>
+        <result property="userid" column="userid"></result>
+        <result property="tid" column="tid"></result>
+    </resultMap>
+
+
+
+    <!--降序查询出当前小区的所有报修-->
+    <select id="getwybxbycommunityid" parameterType="java.lang.Integer" resultMap="wybxMap">
+        SELECT * FROM wybx WHERE communityid=#{communityid} ORDER BY createtime DESC
+    </select>
+
+    <!--增加新报修-->
+    <insert id="addbx" parameterType="wybx">
+        insert into wybx values(null,#{content},#{path},#{createtime},#{statu},#{userid},#{communityid})
+    </insert>
+
+
+    <!--根据小区Id查小区公告-->
+    <select id="getggbycommunityid" parameterType="java.lang.Integer" resultMap="xqggMap">
+        select * from xqgg where communityid=#{communityid} order by createtime desc
+    </select>
+
+    <!--根据公告id查看公告详细信息-->
+    <select id="getgginfobyid" parameterType="java.lang.Integer" resultMap="xqggMap">
+        select * from xqgg where id=#{id}
+    </select>
+
+
+    <!--根据小区Id查物业展示-->
+    <select id="getzsbycommunityid" parameterType="java.lang.Integer" resultMap="wyzsMap">
+        select * from wyzs where communityid=#{communityid} order by createtime desc
+    </select>
+
+    <!--根据公告id查物业展示详细内容-->
+    <select id="getzsinfobyid" parameterType="java.lang.Integer" resultMap="wyzsMap">
+        select * from wyzs where id=#{id}
+    </select>
+
+
+
+    <!--根据小区Id查新房装修案例-->
+    <select id="getzxbycommunityid" parameterType="java.lang.Integer" resultMap="xfzxMap">
+        select * from xfzx where communityid=#{communityid} order by createtime desc
+    </select>
+
+    <!--修改装修案例热度-->
+    <update id="upzxinfohot" parameterType="xfzx">
+        update xfzx set hot=#{hot} where id=#{id}
+    </update>
+
+
+    <!--根据userid查找我的装修进度-->
+    <select id="getwdzx" parameterType="java.lang.Integer" resultMap="wdzxMap">
+        select * from wdzx where userid=#{userid}
+    </select>
+
+    <!--根据公告id装修案例内容-->
+    <select id="getzxinfobyid" parameterType="java.lang.Integer" resultMap="xfzxMap">
+        select * from xfzx where id=#{id}
+    </select>
+
+    <!--确认报修-->
+    <update id="confirmbx" parameterType="wybx">
+        update wybx set statu=#{statu} where id=#{id}
+    </update>
+
+    <!--插入充值-->
+    <insert id="addcz" parameterType="kjcz">
+        insert into kjcz values(null,#{userid},#{communityid},#{money},#{createtime},#{type},#{statu})
+    </insert>
+
+    <!--查找本人成功充值记录-->
+    <select id="getczbyuserid" parameterType="java.lang.Integer" resultMap="kjczMap">
+        select * from kjcz where userid=#{userid} and statu=1
+    </select>
+
+
+    <!--根据小区id查找投票-->
+    <select id="gettpbycommunityid" resultMap="xqtpMap" parameterType="java.lang.Integer">
+        select * from xqtp where communityid=#{communityid} order by createtime desc
+    </select>
+
+    <!--根据id查找小区投票-->
+    <select id="gettpbyid" parameterType="java.lang.Integer" resultMap="xqtpMap">
+        select * from xqtp where id=#{id}
+    </select>
+
+    <!--根据tid查找选项-->
+    <select id="getsebytid" parameterType="java.lang.Integer" resultMap="seMap">
+        select * from se where tid=#{tid}
+    </select>
+
+
+    <!--根据tid查找选项-->
+    <select id="getsebyid" parameterType="java.lang.Integer" resultMap="seMap">
+        select * from se where id=#{id}
+    </select>
+
+    <!--先改选项投票数-->
+    <update id="upsebyid" parameterType="se">
+        update se
+        <set>
+            <if test="progress!=null and progress!=''">progress=#{progress}</if>
+        </set>
+        where id=#{id}
+    </update>
+
+    <!--根据用户id查投票-->
+    <select id="gettpbyuserid" parameterType="java.lang.Integer" resultMap="usertpMap">
+        select * from usertp where userid=#{userid}
+    </select>
+
+    <!--增加用户投票-->
+    <insert id="addusertp" parameterType="usertp">
+        insert into usertp VALUES (null,#{userid},#{tid})
+    </insert>
+
+
+</mapper>

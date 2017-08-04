@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title></title>
+    <link rel="stylesheet" href="/css/pm/gginfo.css"/>
+    <link href="/css/pm/bootstrap.min.css" rel="stylesheet"/>
+    <link rel="stylesheet" type="text/css" href="/css/pm/zzsc-demo.css"/>
+    <link rel="stylesheet" href="/css/pm/baguetteBox.min.css"/>
+    <link rel="stylesheet" href="/css/pm/gallery-clean.css"/>
+</head>
+<body>
+<div class="main">
+    <div class="top">
+        <div class="one">
+            <div class="onediv"><span style="font-size: 3em;color: white;">&lt;</span></div>
+            <div class="div2"><span style="font-size: 2em;color: white;">物业工作展示</span></div>
+        </div>
+    </div>
+
+    <div id="center"  class="center">
+        <div class="cdiv1" ><span class="scdiv1" th:text="${wyzs.title}"></span></div>
+        <div class="cdiv2" ><span class="scdiv2" th:text="${wyzs.createtime}"></span></div>
+        <div class="cdiv3" ><span class="scdiv3" th:text="${wyzs.content}"></span></div>
+        <div class="tz-gallery">
+            <div class="row">
+            </div>
+        </div>
+        <input id="path" type="hidden" th:value="${wyzs.path}"/>
+
+    </div>
+</div>
+
+</body>
+<script src="/jquery-3.1.1.min.js"></script>
+<script type="text/javascript" src="/js/pm/baguetteBox.min.js"></script>
+<script th:inline="javascript">
+    /*<![CDATA[*/
+
+    $(function(){
+        var path=$("#path").val();
+        var paths=new Array();
+        var html=""
+        paths=path.split(",");
+        for(var i=0;i<paths.length;i++){
+            html=html+
+                    "<a class='lightbox' href='"+paths[i]+"'>"+
+                    "<img style='width: 450px;height: 500px' src='"+paths[i]+"' alt='1'>"+
+                    "</a>"
+        }
+        $(".row").append(html);
+        baguetteBox.run('.tz-gallery');
+    })
+    /*]]>*/
+</script>
+</html>
