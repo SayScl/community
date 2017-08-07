@@ -4,10 +4,18 @@
     font-family: 微软雅黑;
 }
 .main{
-    height: 100%;
+    width: 500px;
+    height: 690px;
+    margin: auto;
     display: flex;
     display: -webkit-flex;
     flex-flow: column nowrap;
+}
+.mspan1{
+    font-size: 3em; color: white;
+}
+.mspan2{
+    font-size: 2em; color: white;
 }
 .top{
     height: 25%;
@@ -30,17 +38,23 @@
     flex-flow: column nowrap;
     background-color: gainsboro;
 }
+.cdiv1{
+    background-color: white;margin-bottom: 40px
+}
 .centername{
-    color: #F24269;font-size: 2.5em;
+    color: #F24269;font-size: 1.5em;
 }
 .centerproductlist{
     display: flex;display: -webkit-flex;flex-flow:row nowrap;justify-content: flex-start;margin-bottom: 20px;
 }
 .centerproductlistspan{
-    font-size: 3em;
+    font-size: 2em;
+}
+.cpldiv3{
+ width: 20%;display: flex;display: -webkit-flex;flex-flow: row nowrap;justify-content: flex-start
 }
 .centernameone{
-    font-size: 3em;
+    font-size: 2em;
 }
 .floor{
     height: 15%;
@@ -50,13 +64,13 @@
     justify-content: flex-end;
 }
 .orderspan{
-    font-size: 2em;color: white;line-height: 100px;padding-left: 35px;
+    font-size: 1em;color: white;line-height: 100px;padding-left: 35px;
 }
 .orderdiv{
     height: 100px;width: 200px;background-color: #F24268;
 }
 .floorone{
-    color: #E3393C;font-size: 4em;
+    color: #E3393C;font-size: 2.5em;
 }
 .flooonediv{
     width: 70%;
@@ -67,5 +81,5 @@
     display: -webkit-flex;
     flex-flow: row nowrap;
 
-    font-size: 3em;
+    font-size: 2em;
 }

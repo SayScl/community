@@ -14,12 +14,12 @@
 
         <div class="toptwo">迷家</div>
 
-        <div class="topthree"><img src="/img/firstpage/speak.png" style="opacity: .5;"></img></div>
+        <div class="topthree"><img class="ttimg" src="/img/firstpage/speak.png" ></img></div>
     </div>
     <div class="center">
         <div id="ctt" class="center" th:each="order,iterstatu:${shoporders}">
             <div class="centerone">
-                <div class="centerpic"><img style="width: 100px" th:src="${order.path}"/></div>
+                <div class="centerpic"><img class="cpimg" th:src="${order.path}"/></div>
                 <div class="centeroneone">
                     <div class="centeronetwo">
                         <div style="width: 90%"><span class="centerfont">订单编号</span><span class="centerfont" th:text="${order.orderid}"></span></div>
@@ -53,16 +53,16 @@
 
     <div class="floor">
         <div class="floorpic">
-            <a th:href="@{/}"><img src="/img/firstpage/主页.png"/></a>
+            <a th:href="@{/}"><img class="fdimg" src="/img/firstpage/主页.png"/></a>
         </div>
         <div class="floorpic">
-            <img src="/img/firstpage/订单.png"/>
+            <img class="fdimg" src="/img/firstpage/订单.png"/>
         </div>
         <div class="floorpic">
-            <img src="/img/firstpage/我的.png"/>
+            <img class="fdimg" src="/img/firstpage/我的.png"/>
         </div>
         <div class="floorpic">
-            <img src="/img/firstpage/更多.png"/>
+            <img class="fdimg" src="/img/firstpage/更多.png"/>
         </div>
     </div>
 
@@ -91,15 +91,13 @@
                 var rebackstatu=$("#rebackstatu"+i).val();
                 switch (parseInt($("#sendstatu"+i).val())){
                     case 2:
-                        debugger
                         $("#statutop"+i).text("已支付")
                         if(rebackstatu==2){
                             $("#statu"+i).text("已退");
                         }else if(rebackstatu==1){
                             $("#statu"+i).text("退中");
                         }else if(rebackstatu==0){
-                            debugger
-                            $("#centerplaydiv"+i).css("width","210px");
+                            $("#centerplaydiv"+i).css("width","110px");
                             $("#statu"+i).text("揽件");
                             $("#reback"+i).text("退款");
                             var id3=parseInt($("#toplay"+i).val());

@@ -8,12 +8,12 @@
 <body>
 <div class="main">
     <div class="top">
-        <div class="topone"><span style="font-size: 5em; color: white;">&lt;</span></div>
-        <div class="toptwo"><span style="font-size: 5em; color: white; ">结算订单</span></div>
+        <div class="topone"><span class="mspan1">&lt;</span></div>
+        <div class="toptwo"><span class="mspan2">结算订单</span></div>
     </div>
     <div class="center">
         <form id="form" >
-       <div style="background-color: white;margin-bottom: 40px">
+       <div class="cdiv1">
            <div>
                <p class="centername" >姓名</p>
                <p class="centernameone" id="name" th:text="${user.name}">姓名</p>
@@ -26,11 +26,9 @@
                <p class="centername">商品列表</p>
                <div class="centerproductlist" th:each="product,iterstatu:${shopcar.shopcaritems}">
                    <div style="width: 40%"><span class="centerproductlistspan" th:text="${product.productname}">1</span></div>
-                   <div style="width: 20%"><span class="centerproductlistspan">￥</span><span th:id="'pptotal'+${iterstatu.count}"  class="centerproductlistspan" th:text="${product.producttotalprice}">2</span></div>
-                   <div style="width: 40%;display: flex;display: -webkit-flex;flex-flow: row nowrap;justify-content: flex-start">
-                       <div th:id="${iterstatu.count}" onclick="jian(this)"><img style="width: 70px"  src="/img/supermarket/1.png"/></div>
+                   <div style="width: 40%"><span class="centerproductlistspan">￥</span><span th:id="'pptotal'+${iterstatu.count}"  class="centerproductlistspan" th:text="${product.producttotalprice}">2</span></div>
+                   <div class="cpldiv3">
                        <div ><span class="centerproductlistspan" th:id="'ppcount'+${iterstatu.count}" th:text="${product.productcount}">3</span></div>
-                       <div th:id="${iterstatu.count}" onclick="jia(this)" ><img style="width: 70px"  src="/img/supermarket/2.png"/></div>
                    </div>
                </div>
            </div>

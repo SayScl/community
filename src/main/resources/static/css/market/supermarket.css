@@ -7,6 +7,9 @@ html{
 	height: 100%;
 }
 .main{
+	width: 500px;
+	height: 690px;
+	margin: auto;
 	display: flex;
 	display: -webkit-flex;
 	flex-flow: column nowrap;
